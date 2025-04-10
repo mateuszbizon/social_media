@@ -27,3 +27,9 @@
 body {
     background-color: var(--white-2);
 }
+
+@layer components {
+    .gradient-text {
+        @apply bg-gradient-to-r from-primary to-black-2 bg-clip-text text-transparent
+    }
+}
