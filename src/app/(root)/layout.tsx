@@ -9,7 +9,9 @@ export default function RootLayout({
 
         </aside>
         <div className="grow">
-            {children}
+            <div className="w-full max-w-[900px] px-5 mx-auto">
+                {children}
+            </div>
         </div>
       </main>
     );
