@@ -1,3 +1,6 @@
+import MobileNavigation from "@/components/common/MobileNavigation";
+import Sidebar from "@/components/common/Sidebar";
+
 export default function RootLayout({
     children,
   }: Readonly<{
@@ -5,14 +8,13 @@ export default function RootLayout({
   }>) {
     return (
       <main className="flex">
-        <aside className="w-[300px] h-screen sticky top-0 bg-white">
-
-        </aside>
+        <Sidebar />
         <div className="grow">
             <div className="w-full max-w-[900px] px-5 mx-auto">
                 {children}
             </div>
         </div>
+        <MobileNavigation />
       </main>
     );
   }
