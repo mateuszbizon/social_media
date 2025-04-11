@@ -1,10 +1,12 @@
 "use client"
 
+import { SidebarAction } from "@/types"
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 
 type SidebarContextType = {
     isOpen: boolean
     toggleSidebar: () => void
+    chooseAction: (action: SidebarAction) => void
 }
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
@@ -20,6 +22,7 @@ export function useSidebar() {
 function SidebarProvider({ children }: { children: ReactNode }) {
     const [isOpen, setIsOpen] = useState(false)
     const [canToggle, setCanToggle] = useState(false)
+    const [isSearchUsersOpen, setIsSearchUsersOpen] = useState(false)
 
     useEffect(() => {
         const checkSidebar = () => {
@@ -28,10 +31,17 @@ function SidebarProvider({ children }: { children: ReactNode }) {
             if (width < 1280) {
                 setIsOpen(false)
                 setCanToggle(false)
-            } else {
-                setIsOpen(true)
-                setCanToggle(true)
+                return
             }
+
+            if (isSearchUsersOpen) {
+                setIsOpen(false)
+                setCanToggle(false)
+                return
+            }
+
+            setIsOpen(true)
+            setCanToggle(true)
         }
 
         checkSidebar()
@@ -40,7 +50,22 @@ function SidebarProvider({ children }: { children: ReactNode }) {
         return () => {
             window.removeEventListener("resize", checkSidebar)
         }
-    }, [])
+    }, [isSearchUsersOpen])
+
+    function chooseAction(action: SidebarAction) {
+        switch (action) {
+            case "searchUsers":
+                toggleSearchUsers()
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    function toggleSearchUsers() {
+        setIsSearchUsersOpen(prev => !prev)
+    }
 
     function toggleSidebar() {
         if (!canToggle) return
@@ -49,7 +74,7 @@ function SidebarProvider({ children }: { children: ReactNode }) {
     }
 
   return (
-    <SidebarContext.Provider value={{ isOpen, toggleSidebar }}>
+    <SidebarContext.Provider value={{ isOpen, toggleSidebar, chooseAction }}>
         {children}
     </SidebarContext.Provider>
   )
