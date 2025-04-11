@@ -13,19 +13,20 @@ function SidebarCard({ item }: SidebarCardProps) {
     const { isOpen, chooseAction } = useSidebar()
     const pathname = usePathname()
     const currentPath = item.isLink && pathname.includes(item.href)
+    const Icon = item.icon
 
   return (
     <>
         {item.isLink ? (
             <Button variant={"transparent"} className='w-full justify-start' asChild>
                 <Link href={`${item.href}`}>
-                    {item.icon}
+                    <Icon className='size-6' strokeWidth={currentPath ? "2.5px" : "1.5px"} />
                     {isOpen && <span className={`${currentPath && "font-bold"} hidden md:block`}>{item.name}</span>}
                 </Link>
             </Button>
         ) : (
             <Button variant={"transparent"} className='w-full justify-start' onClick={() => chooseAction(item.action)}>
-                {item.icon}
+                <Icon className='size-6' strokeWidth={currentPath ? "2.5px" : "1.5px"} />
                 {isOpen && <span className='hidden md:block'>{item.name}</span>}
             </Button>
         )}

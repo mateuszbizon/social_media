@@ -4,24 +4,9 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { House, LogOut, Search } from 'lucide-react'
 import { useSidebar } from '@/context/SidebarContext'
-import { SidebarItem } from '@/types'
 import SidebarCard from '../cards/SidebarCard'
 import SearchUsers from './SearchUsers'
-
-export const SIDEBAR_ITEMS: SidebarItem[] = [
-    {
-        name: "Home",
-        icon: <House className='size-6' />,
-        isLink: true,
-        href: "/"
-    },
-    {
-        name: "Search",
-        icon: <Search className='size-6' />,
-        isLink: false,
-        action: "searchUsers"
-    }
-]
+import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
 
 function Sidebar() {
     const { isOpen } = useSidebar()

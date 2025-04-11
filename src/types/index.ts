@@ -1,10 +1,10 @@
-import { ReactNode } from "react"
+import { LucideIcon } from "lucide-react"
 
 export type SidebarAction = "searchUsers"
 
 export type SidebarItem = {
     name: string
-    icon: ReactNode
+    icon: LucideIcon
 } & ({
     isLink: true
     href: string

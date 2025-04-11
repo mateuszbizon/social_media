@@ -3,8 +3,8 @@
 import { LogOut } from 'lucide-react'
 import React from 'react'
 import { Button } from '../ui/button'
-import { SIDEBAR_ITEMS } from './Sidebar'
 import SidebarCard from '../cards/SidebarCard'
+import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
 
 function MobileNavigation() {
   return (
