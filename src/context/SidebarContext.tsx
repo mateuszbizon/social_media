@@ -7,6 +7,7 @@ type SidebarContextType = {
     isOpen: boolean
     isSearchUsersOpen: boolean
     toggleSidebar: () => void
+    toggleSearchUsers: () => void
     chooseAction: (action: SidebarAction) => void
 }
 
@@ -75,7 +76,7 @@ function SidebarProvider({ children }: { children: ReactNode }) {
     }
 
   return (
-    <SidebarContext.Provider value={{ isOpen, isSearchUsersOpen, toggleSidebar, chooseAction }}>
+    <SidebarContext.Provider value={{ isOpen, isSearchUsersOpen, toggleSidebar, toggleSearchUsers, chooseAction }}>
         {children}
     </SidebarContext.Provider>
   )

@@ -8,7 +8,7 @@ import { SidebarItem } from '@/types'
 import SidebarCard from '../cards/SidebarCard'
 import SearchUsers from './SearchUsers'
 
-const SIDEBAR_ITEMS: SidebarItem[] = [
+export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
         name: "Home",
         icon: <House className='size-6' />,

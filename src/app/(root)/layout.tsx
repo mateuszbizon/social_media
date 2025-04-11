@@ -1,3 +1,4 @@
+import MobileNavigation from "@/components/common/MobileNavigation";
 import Sidebar from "@/components/common/Sidebar";
 
 export default function RootLayout({
@@ -13,6 +14,7 @@ export default function RootLayout({
                 {children}
             </div>
         </div>
+        <MobileNavigation />
       </main>
     );
   }

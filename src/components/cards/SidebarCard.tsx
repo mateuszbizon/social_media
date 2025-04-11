@@ -18,11 +18,15 @@ function SidebarCard({ item }: SidebarCardProps) {
     <>
         {item.isLink ? (
             <Button variant={"transparent"} className='w-full justify-start' asChild>
-                <Link href={`${item.href}`}>{item.icon}{isOpen && <span className={`${currentPath && "font-bold"}`}>{item.name}</span>}</Link>
+                <Link href={`${item.href}`}>
+                    {item.icon}
+                    {isOpen && <span className={`${currentPath && "font-bold"} hidden md:block`}>{item.name}</span>}
+                </Link>
             </Button>
         ) : (
             <Button variant={"transparent"} className='w-full justify-start' onClick={() => chooseAction(item.action)}>
-                {item.icon}{isOpen && <span>{item.name}</span>}
+                {item.icon}
+                {isOpen && <span className='hidden md:block'>{item.name}</span>}
             </Button>
         )}
     </>
