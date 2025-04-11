@@ -5,6 +5,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 
 type SidebarContextType = {
     isOpen: boolean
+    isSearchUsersOpen: boolean
     toggleSidebar: () => void
     chooseAction: (action: SidebarAction) => void
 }
@@ -74,7 +75,7 @@ function SidebarProvider({ children }: { children: ReactNode }) {
     }
 
   return (
-    <SidebarContext.Provider value={{ isOpen, toggleSidebar, chooseAction }}>
+    <SidebarContext.Provider value={{ isOpen, isSearchUsersOpen, toggleSidebar, chooseAction }}>
         {children}
     </SidebarContext.Provider>
   )
