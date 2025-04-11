@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { Button } from '../ui/button'
-import Link from 'next/link'
 import { House, LogOut, Search } from 'lucide-react'
 import { useSidebar } from '@/context/SidebarContext'
 import { SidebarItem } from '@/types'
+import SidebarCard from '../cards/SidebarCard'
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
     {
@@ -23,7 +23,7 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
 ]
 
 function Sidebar() {
-    const { isOpen, toggleSidebar, chooseAction } = useSidebar()
+    const { isOpen } = useSidebar()
 
   return (
     <aside className={`hidden md:flex flex-col ${isOpen ? "w-[250px]" : "w-[81px]"} h-screen sticky top-0 bg-white border-r border-r-gray-2 px-3 py-10 transition-all`}>
@@ -31,15 +31,7 @@ function Sidebar() {
         <ul className='mt-10 space-y-4'>
             {SIDEBAR_ITEMS.map(item => (
                 <li key={item.name}>
-                    {item.isLink ? (
-                        <Button variant={"transparent"} className='w-full justify-start' asChild>
-                            <Link href={`${item.href}`}>{item.icon}{isOpen && <span>{item.name}</span>}</Link>
-                        </Button>
-                    ) : (
-                        <Button variant={"transparent"} className='w-full justify-start' onClick={() => chooseAction(item.action)}>
-                            {item.icon}{isOpen && <span>{item.name}</span>}
-                        </Button>
-                    )}
+                    <SidebarCard item={item} />
                 </li>
             ))}
         </ul>
