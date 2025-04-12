@@ -7,8 +7,10 @@ import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import useSignIn from '@/lib/hooks/services/users/useSignIn'
 
 function SignInForm() {
+    const { handleSignIn } = useSignIn()
     const form = useForm<SignInSchema>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
@@ -19,6 +21,7 @@ function SignInForm() {
 
     async function onSubmit(data: SignInSchema) {
         console.log(data)
+        await handleSignIn(data)
     }
 
   return (

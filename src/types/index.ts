@@ -12,3 +12,7 @@ export type SidebarItem = {
     isLink: false
     action: SidebarAction
 })
+
+export type ErrorResponse = {
+    message: string
+}
