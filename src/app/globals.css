@@ -37,4 +37,8 @@ body {
     .heading1 {
         @apply text-2xl font-bold
     }
+
+    .heading2 {
+        @apply text-xl font-bold
+    }
 }
