@@ -1,9 +1,11 @@
 import React from 'react'
 
-function page() {
+function SignInPage() {
   return (
-    <div>sign in</div>
+    <>
+        <h1 className='heading1 gradient-text text-center mb-10'>Matgram</h1>
+    </>
   )
 }
 
-export default page
+export default SignInPage
