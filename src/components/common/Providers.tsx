@@ -1,5 +1,6 @@
 "use client"
 
+import AuthContextProvider from '@/context/AuthContext'
 import SidebarProvider from '@/context/SidebarContext'
 import React, { ReactNode } from 'react'
 
@@ -9,9 +10,11 @@ type ProvidersProps = {
 
 function Providers({ children }: ProvidersProps) {
   return (
-    <SidebarProvider>
-        {children}
-    </SidebarProvider>
+    <AuthContextProvider>
+        <SidebarProvider>
+            {children}
+        </SidebarProvider>
+    </AuthContextProvider>
   )
 }
 
