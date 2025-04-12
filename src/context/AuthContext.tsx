@@ -37,6 +37,8 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
         const handleCheckUserAuth = async () => {
             try {
                 const data = await checkUserAuth()
+
+                setUser(data.user)
             } catch (error) {
                 logoutUser()
             }
