@@ -2,6 +2,7 @@
 
 import AuthContextProvider from '@/context/AuthContext'
 import SidebarProvider from '@/context/SidebarContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { ReactNode } from 'react'
 
 type ProvidersProps = {
@@ -9,12 +10,16 @@ type ProvidersProps = {
 }
 
 function Providers({ children }: ProvidersProps) {
+    const queryClient = new QueryClient()
+
   return (
-    <AuthContextProvider>
-        <SidebarProvider>
-            {children}
-        </SidebarProvider>
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
+            <SidebarProvider>
+                {children}
+            </SidebarProvider>
+        </AuthContextProvider>
+    </QueryClientProvider>
   )
 }
 
