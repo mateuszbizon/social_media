@@ -5,7 +5,7 @@ export default function RootLayout({
   }>) {
     return (
       <main className="min-h-screen py-10">
-        <div className="w-full max-w-[600px] mx-auto">
+        <div className="w-full max-w-[600px] mx-auto px-5">
             {children}
         </div>
       </main>
