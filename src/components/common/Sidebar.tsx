@@ -1,12 +1,11 @@
 "use client"
 
 import React from 'react'
-import { Button } from '../ui/button'
-import { House, LogOut, Search } from 'lucide-react'
 import { useSidebar } from '@/context/SidebarContext'
 import SidebarCard from '../cards/SidebarCard'
 import SearchUsers from './SearchUsers'
 import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
+import SidebarAuthBtn from './SidebarAuthBtn'
 
 function Sidebar() {
     const { isOpen } = useSidebar()
@@ -23,9 +22,7 @@ function Sidebar() {
                 ))}
             </ul>
             <div className='mt-auto'>
-                <Button variant={"transparent"} className='w-full justify-start'>
-                    <LogOut className='size-6' />{isOpen && <span>Logout</span>}
-                </Button>
+                <SidebarAuthBtn />
             </div>
         </aside>
         <SearchUsers />
