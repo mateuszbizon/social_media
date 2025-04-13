@@ -13,8 +13,14 @@ function useSignIn() {
             saveUser(data.user, data.token)
         },
         onError: (error: AxiosError<ErrorResponse>) => {
-            console.log(error.response?.data.message)
-            toast.error("Error")
+            const errorMessage = error.response?.data.message
+
+            if (error.status == 400) {
+                toast.error(errorMessage)
+                return
+            }
+
+            toast.error(errorMessage)
         }
     })
 

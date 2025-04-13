@@ -20,7 +20,6 @@ function SignInForm() {
     })
 
     async function onSubmit(data: SignInSchema) {
-        console.log(data)
         await handleSignIn(data)
     }
 
