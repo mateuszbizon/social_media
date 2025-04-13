@@ -33,4 +33,12 @@ body {
     .gradient-text {
         @apply bg-gradient-to-r from-primary to-black-2 bg-clip-text text-transparent
     }
+
+    .heading1 {
+        @apply text-2xl font-bold
+    }
+
+    .heading2 {
+        @apply text-xl font-bold
+    }
 }
