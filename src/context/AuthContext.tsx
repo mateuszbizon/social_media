@@ -1,13 +1,15 @@
 "use client"
 
+import { API } from "@/lib/services"
 import { checkUserAuth } from "@/lib/services/auth"
 import { User } from "@/types/models"
-import { createContext, ReactNode, useContext, useEffect, useState } from "react"
+import { createContext, ReactNode, useContext, useEffect, useLayoutEffect, useState } from "react"
 
 type AuthContextType = {
     user: User | null
     saveUser: (user: User, token: string) => void
     logoutUser: () => void
+    isAuthor: (userId: string) => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -33,6 +35,10 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem("token")
     }
 
+    function isAuthor(userId: string) {
+        return user?.id === userId
+    }
+
     useEffect(() => {
         const handleCheckUserAuth = async () => {
             try {
@@ -47,8 +53,24 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
         handleCheckUserAuth()
     }, [])
 
+    useLayoutEffect(() => {
+        const authInterceptor = API.interceptors.request.use(config => {
+            const token = localStorage.getItem("token")
+
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`
+            }
+
+            return config
+        })
+
+        return () => {
+            API.interceptors.request.eject(authInterceptor)
+        }
+    }, [user])
+
   return (
-    <AuthContext.Provider value={{ user, saveUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, saveUser, logoutUser, isAuthor }}>
         {children}
     </AuthContext.Provider>
   )

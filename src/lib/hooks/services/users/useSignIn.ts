@@ -3,17 +3,19 @@ import { signIn } from '@/lib/services/users'
 import { ErrorResponse } from '@/types'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'react-toastify'
+import useRedirectAfterLogin from '../../useRedirectAfterLogin'
 
 function useSignIn() {
     const router = useRouter()
     const { saveUser } = useAuthContext()
+    const redirectTo = useRedirectAfterLogin()
     const { mutateAsync: handleSignIn } = useMutation({
         mutationFn: signIn,
         onSuccess: (data) => {
             saveUser(data.user, data.token)
-            router.push("/")
+            router.push(redirectTo)
         },
         onError: (error: AxiosError<ErrorResponse>) => {
             const errorMessage = error.response?.data.message

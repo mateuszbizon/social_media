@@ -12,7 +12,7 @@ function Sidebar() {
 
   return (
     <>
-        <aside className={`hidden md:flex flex-col ${isOpen ? "w-[250px]" : "w-[81px]"} h-screen sticky top-0 bg-white border-r border-r-gray-2 px-3 py-10 transition-all z-1`}>
+        <aside className={`hidden md:flex flex-col ${isOpen ? "w-[250px]" : "w-[81px]"} h-screen sticky top-0 bg-white border-r border-r-gray-2 px-3 py-10 transition-all z-3`}>
             <h1 className='text-2xl font-bold gradient-text pl-4'>{isOpen ? "Matgram" : "M"}</h1>
             <ul className='mt-10 space-y-4'>
                 {SIDEBAR_ITEMS.map(item => (
