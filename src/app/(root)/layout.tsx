@@ -9,7 +9,7 @@ export default function RootLayout({
     return (
       <main className="flex">
         <Sidebar />
-        <div className="grow py-10">
+        <div className="grow py-20 md:py-10">
             <div className="w-full max-w-[900px] px-5 mx-auto">
                 {children}
             </div>
