@@ -11,9 +11,7 @@ export async function signIn(userData: SignInSchema): Promise<SignInResponse> {
 
 export async function getUserProfile(username: string) {
     try {
-        console.log('zaptytanie')
         const { data } = await API.get<GetUserProfileResponse>(`/users/get-user-profile/${username}`)
-        console.log('zapytanie2')
 
         return {
             success: true,
@@ -21,7 +19,7 @@ export async function getUserProfile(username: string) {
         }
     } catch (error) {
         console.error(error)
-        
+
         if (error instanceof AxiosError) {
             return {
                 success: false,
