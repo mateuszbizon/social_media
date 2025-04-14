@@ -23,7 +23,7 @@ function UserProfile({ userProfile }: UserProfileProps) {
         </div>
         <div className='space-y-5 md:space-y-8 md:grow'>
             <div className='flex justify-center items-center md:justify-start flex-wrap gap-5'>
-                <p className='text-black-2 text-lg font-medium'>{userProfile.user.username}</p>
+                <p className='text-black-2 text-lg md:text-xl font-medium'>{userProfile.user.username}</p>
                 {isAuthor(userProfile.user.id) && (
                     <Button asChild>
                         <Link href={"/user/edit-profile"}>
@@ -34,20 +34,20 @@ function UserProfile({ userProfile }: UserProfileProps) {
             </div>
             <div className='grid grid-cols-3'>
                 <div className='space-y-2'>
-                    <p className='text-center text-black-2 font-semibold'>Posts</p>
-                    <p className='text-center text-black-2'>{userProfile.postsCount}</p>
+                    <p className='text-center text-black-2 font-semibold md:text-lg'>Posts</p>
+                    <p className='text-center text-black-2 md:text-lg'>{userProfile.postsCount}</p>
                 </div>
                 <div className='space-y-2'>
-                    <p className='text-center text-black-2 font-semibold'>Followers</p>
-                    <p className='text-center text-black-2'>{userProfile.followersCount}</p>
+                    <p className='text-center text-black-2 font-semibold md:text-lg'>Followers</p>
+                    <p className='text-center text-black-2 md:text-lg'>{userProfile.followersCount}</p>
                 </div>
                 <div className='space-y-2'>
-                    <p className='text-center text-black-2 font-semibold'>Following</p>
-                    <p className='text-center text-black-2'>{userProfile.followingCount}</p>
+                    <p className='text-center text-black-2 font-semibold md:text-lg'>Following</p>
+                    <p className='text-center text-black-2 md:text-lg'>{userProfile.followingCount}</p>
                 </div>
             </div>
             <div>
-                <p className='text-black-2 text-lg text-center md:text-left'>{userProfile.user.firstName} {userProfile.user.lastName}</p>
+                <p className='text-black-2 text-lg md:text-xl text-center md:text-left'>{userProfile.user.firstName} {userProfile.user.lastName}</p>
             </div>
         </div>
     </div>
