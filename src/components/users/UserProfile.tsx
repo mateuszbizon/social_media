@@ -1,14 +1,19 @@
+"use client"
+
 import { GetUserProfileResponse } from '@/types/userResponse'
 import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
+import { useAuthContext } from '@/context/AuthContext'
 
 type UserProfileProps = {
     userProfile: GetUserProfileResponse
 }
 
 function UserProfile({ userProfile }: UserProfileProps) {
+    const { isAuthor } = useAuthContext()
+
   return (
     <div className='flex flex-col md:flex-row gap-5'>
         <div className='flex justify-center md:w-1/3'>
@@ -19,11 +24,13 @@ function UserProfile({ userProfile }: UserProfileProps) {
         <div className='space-y-5 md:space-y-8 md:grow'>
             <div className='flex justify-center items-center md:justify-start flex-wrap gap-5'>
                 <p className='text-black-2 text-lg font-medium'>{userProfile.user.username}</p>
-                <Button asChild>
-                    <Link href={"/"}>
-                        Edit profile
-                    </Link>
-                </Button>
+                {isAuthor(userProfile.user.id) && (
+                    <Button asChild>
+                        <Link href={"/user/edit-profile"}>
+                            Edit profile
+                        </Link>
+                    </Button>
+                )}
             </div>
             <div className='grid grid-cols-3'>
                 <div className='space-y-2'>

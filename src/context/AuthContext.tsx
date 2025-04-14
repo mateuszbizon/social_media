@@ -9,6 +9,7 @@ type AuthContextType = {
     user: User | null
     saveUser: (user: User, token: string) => void
     logoutUser: () => void
+    isAuthor: (userId: string) => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -32,6 +33,10 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
     function logoutUser() {
         setUser(null)
         localStorage.removeItem("token")
+    }
+
+    function isAuthor(userId: string) {
+        return user?.id === userId
     }
 
     useEffect(() => {
@@ -65,7 +70,7 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
     }, [user])
 
   return (
-    <AuthContext.Provider value={{ user, saveUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, saveUser, logoutUser, isAuthor }}>
         {children}
     </AuthContext.Provider>
   )
