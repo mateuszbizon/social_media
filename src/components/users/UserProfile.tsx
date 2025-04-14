@@ -18,7 +18,7 @@ function UserProfile({ userProfile }: UserProfileProps) {
     <div className='flex flex-col md:flex-row gap-5'>
         <div className='flex justify-center md:w-1/3'>
             <div className='relative size-[100px] md:size-[150px]'>
-                <Image src={userProfile.user.avatar || ""} alt='User avatar' fill className='rounded-full object-cover' />
+                <Image src={userProfile.user.avatar || "/user_empty.jpg"} alt='User avatar' fill className='rounded-full object-cover' />
             </div>
         </div>
         <div className='space-y-5 md:space-y-8 md:grow'>
