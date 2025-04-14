@@ -21,7 +21,7 @@ function SidebarAuthBtn() {
             </Button>
         ) : (
             <Button variant={"transparent"} className='w-full justify-start' asChild>
-                <Link href={"/sign-in"}>
+                <Link href={`/sign-in?redirect=${currentPath}`}>
                     <LogIn className='size-6' />{isOpen && <span className='hidden md:block'>Sign in</span>}
                 </Link>
             </Button>
