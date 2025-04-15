@@ -5,6 +5,7 @@ import { UserPostsQueryParams } from '@/types'
 import React, { useEffect, useState } from 'react'
 import { useInView } from "react-intersection-observer"
 import { Button } from '../ui/button'
+import UserPostsLoading from '../loadings/UserPostsLoading'
 
 type UserPostsProps = {
     userId: string
@@ -24,8 +25,6 @@ function UserPosts({ userId }: UserPostsProps) {
         }
     }, [inView, fetchNextPage])
 
-    if (isPending) return <div>Loading...</div>
-
     if (status === "error") return <div>{error?.message}</div>
 
   return (
@@ -38,6 +37,7 @@ function UserPosts({ userId }: UserPostsProps) {
                 Oldest
             </Button>
         </div>
+        {isPending && <UserPostsLoading />}
         <div className='space-y-5'>
             {data?.pages.map(page => (
                 <div key={page.currentPage} className='grid grid-cols-3 gap-5'>
