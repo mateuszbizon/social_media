@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useInView } from "react-intersection-observer"
 import { Button } from '../ui/button'
 import UserPostsLoading from '../loadings/UserPostsLoading'
+import UserPostCard from '../cards/UserPostCard'
 
 type UserPostsProps = {
     userId: string
@@ -40,11 +41,9 @@ function UserPosts({ userId }: UserPostsProps) {
         {isPending && <UserPostsLoading />}
         <div className='space-y-5'>
             {data?.pages.map(page => (
-                <div key={page.currentPage} className='grid grid-cols-3 gap-5'>
+                <div key={page.currentPage} className='grid sm:grid-cols-2 md:grid-cols-3 gap-5'>
                     {page.posts.map(post => (
-                        <div key={post.id} className='w-full aspect-square bg-gray-2'>
-                            <p className='line-clamp-2 text-black-2'>{post.content}</p>
-                        </div>
+                        <UserPostCard key={post.id} post={post} />
                     ))}
                 </div>
             ))}

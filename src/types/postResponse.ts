@@ -1,14 +1,12 @@
 import { Post } from "./models"
 
+export type UserPost = Pick<Post, "id" | "image" | "content" | "createdAt"> & {
+    likeCount: number
+    commentCount: number
+} 
+
 export type GetUserPostsResponse = {
-    posts: {
-        id: Post["id"]
-        content: Post["content"]
-        image: Post["image"]
-        createdAt: Post["createdAt"]
-        likeCount: number
-        commentCount: number
-    }[]
+    posts: UserPost[]
     currentPage: number
     totalPosts: number
     nextPage: number | null
