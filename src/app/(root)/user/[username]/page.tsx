@@ -1,3 +1,4 @@
+import UserPosts from '@/components/posts/UserPosts'
 import UserProfile from '@/components/users/UserProfile'
 import { getUserProfile } from '@/lib/services/users'
 import { notFound } from 'next/navigation'
@@ -16,7 +17,14 @@ async function UserProfilePage({ params }: Props) {
   return (
     <div>
         <div>
-            {userProfileResult.data && <UserProfile userProfile={userProfileResult.data} />}
+            {userProfileResult.data && (
+                <>
+                    <div className='mb-20'>
+                        <UserProfile userProfile={userProfileResult.data} />
+                    </div>
+                    <UserPosts userId={userProfileResult.data.user.id} />
+                </>
+            )}
         </div>
     </div>
   )
