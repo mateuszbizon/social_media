@@ -16,3 +16,7 @@ export type SidebarItem = {
 export type ErrorResponse = {
     message: string
 }
+
+export type UserPostsQueryParams = {
+    sort: "asc" | "desc"
+}
