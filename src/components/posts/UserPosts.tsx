@@ -15,7 +15,7 @@ type UserPostsProps = {
 
 function UserPosts({ userId }: UserPostsProps) {
     const [postsSort, setPostsSort] = useState<UserPostsQueryParams["sort"]>("desc")
-    const { data, isPending, status, fetchNextPage, isFetchingNextPage, error } = useGetUserPosts({
+    const { data, isPending, isError, fetchNextPage, isFetchingNextPage, error } = useGetUserPosts({
         userId,
         sort: postsSort
     })
@@ -27,7 +27,7 @@ function UserPosts({ userId }: UserPostsProps) {
         }
     }, [inView, fetchNextPage])
 
-    if (status === "error") return <div>{error?.message}</div>
+    if (isError) return <div>{error?.message}</div>
 
   return (
     <div>

@@ -8,7 +8,7 @@ type Props = {
 }
 
 function useGetUserPosts({ userId, sort }: Props) {
-    const { data, error, status, fetchNextPage, isFetchingNextPage, isPending } = useInfiniteQuery({
+    const { data, error, fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
         queryKey: ["userPosts", sort],
         queryFn: ({ pageParam }) => getUserPosts(pageParam, sort, userId),
         initialPageParam: 1,
@@ -18,10 +18,10 @@ function useGetUserPosts({ userId, sort }: Props) {
   return {
     data,
     error,
-    status,
     fetchNextPage,
     isFetchingNextPage,
     isPending,
+    isError
   }
 }
 
