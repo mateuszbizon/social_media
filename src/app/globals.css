@@ -23,10 +23,13 @@
     --color-black-2: var(--black-2);
     --color-gray-2: var(--gray-2);
     --color-green-2: var(--green-2);
+    --animate-rotate-spinner: rotate-spinner 1s linear infinite;
 }
 
-body {
-    background-color: var(--white-2);
+@layer base {
+    body {
+        @apply bg-white-2
+    }
 }
 
 @layer components {
@@ -40,5 +43,22 @@ body {
 
     .heading2 {
         @apply text-xl font-bold
+    }
+}
+
+@layer utilities {
+    .mask {
+        --_m: 
+            conic-gradient(#0000 10%,#000),
+            linear-gradient(#000 0 0) content-box;
+        -webkit-mask: var(--_m);
+        mask: var(--_m);
+        mask-composite: subtract;
+    }
+}
+
+@keyframes rotate-spinner {
+    to {
+        transform: rotate(1turn);
     }
 }

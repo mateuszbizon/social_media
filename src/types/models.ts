@@ -5,3 +5,12 @@ export type User = {
     username: string;
     avatar: string | null;
 }
+
+export type Post = {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    content: string;
+    image: string | null;
+    authorId: string;
+}
