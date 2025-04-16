@@ -20,3 +20,12 @@ export type ErrorResponse = {
 export type UserPostsQueryParams = {
     sort: "asc" | "desc"
 }
+
+export type ServiceError = {
+    status?: number
+    error?: string
+}
+
+export type ServiceResult<T> = {
+    data?: T
+} & ServiceError

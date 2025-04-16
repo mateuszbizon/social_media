@@ -8,6 +8,7 @@ import { Button } from '../ui/button'
 import UserPostsLoading from '../loadings/UserPostsLoading'
 import UserPostCard from '../cards/UserPostCard'
 import CircleLoading from '../ui/circleLoading'
+import MainError from '../errors/MainError'
 
 type UserPostsProps = {
     userId: string
@@ -27,7 +28,7 @@ function UserPosts({ userId }: UserPostsProps) {
         }
     }, [inView, fetchNextPage])
 
-    if (isError) return <div>{error?.message}</div>
+    if (isError) return <MainError message={error?.message || ""} />
 
   return (
     <div>
