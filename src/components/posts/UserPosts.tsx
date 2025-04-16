@@ -7,6 +7,7 @@ import { useInView } from "react-intersection-observer"
 import { Button } from '../ui/button'
 import UserPostsLoading from '../loadings/UserPostsLoading'
 import UserPostCard from '../cards/UserPostCard'
+import CircleLoading from '../ui/circleLoading'
 
 type UserPostsProps = {
     userId: string
@@ -48,7 +49,7 @@ function UserPosts({ userId }: UserPostsProps) {
                 </div>
             ))}
 
-            <div ref={ref}>{isFetchingNextPage && <div>Loading...</div>}</div>
+            <div ref={ref}>{isFetchingNextPage && <CircleLoading className='mx-auto' />}</div>
         </div>
     </div>
   )
