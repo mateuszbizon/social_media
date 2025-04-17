@@ -6,6 +6,7 @@ import CircleLoading from '../ui/circleLoading'
 import MainError from '../errors/MainError'
 import { useInView } from 'react-intersection-observer'
 import SearchUserCard from '../cards/SearchUserCard'
+import FlatList from '../common/FlatList'
 
 type SearchedUsersProps = {
     searchValue: string
@@ -30,22 +31,23 @@ function SearchedUsers({ searchValue }: SearchedUsersProps) {
     if (isError) return <MainError message={error?.message || ""} />
 
   return (
-    <div>
-        <div className='space-y-3'>
-            {data?.pages.map(page => (
-                <div key={page.currentPage} className='space-y-3'>
-                    {page.users.map(user => (
-                        <SearchUserCard key={user.username} user={user} />
-                    ))}
+    <div className='space-y-3'>
+        {data?.pages.map(page => (
+            <FlatList 
+                data={page.users}
+                renderItem={(user) => (
+                    <SearchUserCard user={user} />
+                )}
+                key={page.currentPage}
+                keyExtractor={(user) => user.username}
+                renderEmptyListComponent={() => (
+                    <p className='text-center text-black-2'>No users found</p>
+                )}
+                className='space-y-3'
+            />
+        ))}
 
-                    {page.users.length == 0 && (
-                        <p className='text-center text-black-2'>No users found</p>
-                    )}
-                </div>
-            ))}
-
-            <div ref={ref}>{isFetchingNextPage && <CircleLoading className='mx-auto' />}</div>
-        </div>
+        <div ref={ref}>{isFetchingNextPage && <CircleLoading className='mx-auto' />}</div>
     </div>
   )
 }
