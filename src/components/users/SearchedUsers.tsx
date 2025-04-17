@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import CircleLoading from '../ui/circleLoading'
 import MainError from '../errors/MainError'
 import { useInView } from 'react-intersection-observer'
+import SearchUserCard from '../cards/SearchUserCard'
 
 type SearchedUsersProps = {
     searchValue: string
@@ -34,11 +35,9 @@ function SearchedUsers({ searchValue }: SearchedUsersProps) {
             {data?.pages.map(page => (
                 <div key={page.currentPage} className='space-y-3'>
                     {page.users.map(user => (
-                        <div key={user.username}>
-                            {user.username}
-                        </div>
+                        <SearchUserCard key={user.username} user={user} />
                     ))}
-                    
+
                     {page.users.length == 0 && (
                         <p className='text-center text-black-2'>No users found</p>
                     )}
