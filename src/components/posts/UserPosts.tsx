@@ -9,6 +9,7 @@ import UserPostsLoading from '../loadings/UserPostsLoading'
 import UserPostCard from '../cards/UserPostCard'
 import CircleLoading from '../ui/circleLoading'
 import MainError from '../errors/MainError'
+import FlatList from '../common/FlatList'
 
 type UserPostsProps = {
     userId: string
@@ -43,11 +44,18 @@ function UserPosts({ userId }: UserPostsProps) {
         {isPending && <UserPostsLoading />}
         <div className='space-y-5'>
             {data?.pages.map(page => (
-                <div key={page.currentPage} className='grid sm:grid-cols-2 md:grid-cols-3 gap-5'>
-                    {page.posts.map(post => (
-                        <UserPostCard key={post.id} post={post} />
-                    ))}
-                </div>
+                <FlatList
+                    data={page.posts}
+                    renderItem={(post) => (
+                        <UserPostCard post={post} />
+                    )}
+                    key={page.currentPage}
+                    keyExtractor={(post) => post.id}
+                    className='grid sm:grid-cols-2 md:grid-cols-3 gap-5'
+                    itemListProps={() => ({
+                        className: "relative w-full aspect-square"
+                    })}
+                />
             ))}
 
             <div ref={ref}>{isFetchingNextPage && <CircleLoading className='mx-auto' />}</div>
