@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import SearchBar from './SearchBar'
 import useDebounce from '@/lib/hooks/useDebounce'
+import SearchedUsers from '../users/SearchedUsers'
 
 function SearchUsers() {
     const { isSearchUsersOpen, toggleSearchUsers } = useSidebar()
@@ -27,6 +28,7 @@ function SearchUsers() {
         <div className='mb-5'>
             <SearchBar onChange={changeSearch} />
         </div>
+        <SearchedUsers searchValue={debouncedSearch} />
     </div>
   )
 }
