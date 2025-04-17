@@ -15,3 +15,14 @@ export type GetUserProfileResponse = {
     followersCount: number
     followingCount: number
 }
+
+export type SearchUser = Pick<User, "username" | "firstName" | "lastName" | "avatar"> & {
+    followersCount: number
+}
+
+export type SearchUsersResponse = {
+    users: SearchUser[]
+    currentPage: number
+    totalUsers: number
+    nextPage: number | null
+}

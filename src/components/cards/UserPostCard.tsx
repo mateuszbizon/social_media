@@ -12,7 +12,7 @@ function UserPostCard({ post }: UserPostCardProps) {
     const isImage = post.image ? true : false
 
   return (
-    <Link href={`/post/${post.id}`} className='group relative w-full aspect-square'>
+    <Link href={`/post/${post.id}`} className='group'>
         {isImage ? (
             <div className='relative size-full'>
                 <Image src={post.image!} alt='Post image' fill className='object-cover rounded-xl' />

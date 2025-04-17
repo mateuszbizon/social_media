@@ -21,6 +21,10 @@ export type UserPostsQueryParams = {
     sort: "asc" | "desc"
 }
 
+export type SearchUsersQueryParams = {
+    query: string
+}
+
 export type ServiceError = {
     status?: number
     error?: string
