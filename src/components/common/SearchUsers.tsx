@@ -5,10 +5,12 @@ import { ArrowLeft } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import SearchBar from './SearchBar'
+import useDebounce from '@/lib/hooks/useDebounce'
 
 function SearchUsers() {
     const { isSearchUsersOpen, toggleSearchUsers } = useSidebar()
     const [search, setSearch] = useState("")
+    const debouncedSearch = useDebounce(search)
 
     function changeSearch(value: string) {
         setSearch(value)
