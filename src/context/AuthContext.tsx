@@ -25,7 +25,7 @@ export function useAuthContext() {
 
 function AuthContextProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
-    const [isAuthLoading, setIsAuthLoading] = useState(false)
+    const [isAuthLoading, setIsAuthLoading] = useState(true)
 
     function saveUser(user: User, token: string) {
         setUser(user)

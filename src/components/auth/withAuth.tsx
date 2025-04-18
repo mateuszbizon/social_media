@@ -20,6 +20,8 @@ function withAuth<P extends WithAuthProps>(Component: ComponentType<P>) {
         }
     }, [user, isAuthLoading])
 
+    if (isAuthLoading) return null
+
     return (
         <Component {...(props as P)} user={user} />
     )
