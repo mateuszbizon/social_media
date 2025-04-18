@@ -33,3 +33,5 @@ export type ServiceError = {
 export type ServiceResult<T> = {
     data?: T
 } & ServiceError
+
+export type ProfileOptions = "profile" | "password"
