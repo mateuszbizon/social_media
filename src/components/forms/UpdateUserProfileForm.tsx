@@ -1,26 +1,41 @@
 "use client"
 
-import { UserProfileSchema } from '@/lib/validations/userProfileSchema'
+import { userProfileSchema, UserProfileSchema } from '@/lib/validations/userProfileSchema'
 import { User } from '@/types/models'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import ImageHolder from './ImageHolder'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type UpdateUserProfileFormProps = {
     user: User
 }
 
 function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
+    const [avatar, setAvatar] = useState<string | null>(user.avatar)
     const form = useForm<UserProfileSchema>({
+        resolver: zodResolver(userProfileSchema),
         defaultValues: {
             firstName: user.firstName,
             lastName: user.lastName,
             username: user.username,
-            avatar: null,
+            avatar: undefined,
         }
     })
+
+    function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0]
+
+        if (file) {
+            const imageUrl = URL.createObjectURL(file)
+
+            setAvatar(imageUrl)
+            form.setValue('avatar', file)
+        }
+    }
 
     function onSubmit(data: UserProfileSchema) {
         console.log(data)
@@ -29,6 +44,20 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
   return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
+            <FormField
+                control={form.control}
+                name='avatar'
+                render={() => (
+                    <FormItem>
+                        <FormLabel>Avatar</FormLabel>
+                        <FormControl>
+                            <ImageHolder onChangeImage={onChangeImage} imageUrl={avatar} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            {/* <ImageHolder onChangeImage={onChangeImage} imageUrl={avatar} /> */}
             <div className='grid md:grid-cols-2 gap-5'>
                 <FormField
                     control={form.control}
