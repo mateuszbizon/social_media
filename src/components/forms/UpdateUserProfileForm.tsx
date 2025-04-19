@@ -2,13 +2,14 @@
 
 import { userProfileSchema, UserProfileSchema } from '@/lib/validations/userProfileSchema'
 import { User } from '@/types/models'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import ImageHolder from './ImageHolder'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getFileFromUrl } from '@/lib/utils'
 
 type UpdateUserProfileFormProps = {
     user: User
@@ -25,6 +26,20 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
             avatar: undefined,
         }
     })
+
+    useEffect(() => {
+        const handleGetFile = async () => {
+            if (user.avatar) {
+                const file = await getFileFromUrl(user.avatar)
+
+                if (file) {
+                    form.setValue('avatar', file)
+                }
+            }
+        }
+
+        handleGetFile()
+    }, [])
 
     function onChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0]
@@ -57,7 +72,6 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
                     </FormItem>
                 )}
             />
-            {/* <ImageHolder onChangeImage={onChangeImage} imageUrl={avatar} /> */}
             <div className='grid md:grid-cols-2 gap-5'>
                 <FormField
                     control={form.control}
