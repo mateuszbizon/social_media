@@ -26,3 +26,8 @@ export type SearchUsersResponse = {
     totalUsers: number
     nextPage: number | null
 }
+
+export type UpdateUserProfileResponse = {
+    user: User
+    token: string
+}

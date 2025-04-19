@@ -29,3 +29,9 @@ export async function searchUsers(page: number, query: string) {
 
     return data
 }
+
+export async function updateUserProfile(formData: FormData) {
+    const { data } = await API.patch(`/users/update-user-profile`, formData)
+
+    return data
+}
