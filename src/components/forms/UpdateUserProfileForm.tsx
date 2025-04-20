@@ -4,7 +4,7 @@ import { userProfileSchema, UserProfileSchema } from '@/lib/validations/userProf
 import { User } from '@/types/models'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import ImageHolder from './ImageHolder'
@@ -83,6 +83,7 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
                         <FormControl>
                             <ImageHolder onChangeImage={onChangeImage} deleteImage={deleteImage} imageUrl={avatar} />
                         </FormControl>
+                        <FormDescription className='lg:hidden'>Click image to change</FormDescription>
                         <FormMessage />
                     </FormItem>
                 )}
