@@ -10,6 +10,7 @@ import { Button } from '../ui/button'
 import ImageHolder from './ImageHolder'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getFileFromUrl } from '@/lib/utils'
+import useUpdateUserProfile from '@/lib/hooks/services/users/useUpdateUserProfile'
 
 type UpdateUserProfileFormProps = {
     user: User
@@ -26,6 +27,7 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
             avatar: undefined,
         }
     })
+    const { handleUpdateUserProfile } = useUpdateUserProfile()
 
     useEffect(() => {
         const handleGetFile = async () => {
@@ -52,8 +54,16 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
         }
     }
 
-    function onSubmit(data: UserProfileSchema) {
+    async function onSubmit(data: UserProfileSchema) {
         console.log(data)
+
+        const formData = new FormData()
+        formData.append('firstName', data.firstName)
+        formData.append('lastName', data.lastName)
+        formData.append('username', data.username)
+        formData.append('avatar', data.avatar)
+
+        await handleUpdateUserProfile(formData)
     }
 
   return (
@@ -114,7 +124,7 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
                 )}
             />
 
-            <Button type='submit' className='w-full'>
+            <Button type='submit' className='w-full' disabled={form.formState.isSubmitting}>
                 {form.formState.isSubmitting ? "Submitting..." : "Submit"}
             </Button>
         </form>
