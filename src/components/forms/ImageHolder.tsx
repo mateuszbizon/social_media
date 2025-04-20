@@ -1,17 +1,20 @@
 import React from 'react'
-import { Input } from '../ui/input'
 import Image from 'next/image'
+import { Button } from '../ui/button'
 
 type ImageHolderProps = {
     onChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void
+    deleteImage: () => void
     imageUrl: string | null
     isAvatar?: boolean
 }
 
-function ImageHolder({ onChangeImage, imageUrl, isAvatar = true }: ImageHolderProps) {
+function ImageHolder({ onChangeImage, imageUrl, isAvatar = true, deleteImage }: ImageHolderProps) {
   return (
     <div>
-        <Input type='file' onChange={onChangeImage} className='mb-5' />
+        <Button type='button' variant={"outline"} size={"sm"} className='mb-3' onClick={deleteImage}>
+            Remove image
+        </Button>
         <label htmlFor='image' className={`block ${isAvatar ? "size-[170px]" : "w-full aspect-video"} rounded-2xl cursor-pointer overflow-hidden`}>
             <input id='image' type='file' className='hidden' onChange={onChangeImage} />
             {imageUrl ? (

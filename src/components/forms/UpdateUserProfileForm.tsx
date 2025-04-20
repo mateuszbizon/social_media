@@ -54,6 +54,11 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
         }
     }
 
+    function deleteImage() {
+        setAvatar(null)
+        form.setValue('avatar', undefined)
+    }
+
     async function onSubmit(data: UserProfileSchema) {
         console.log(data)
 
@@ -76,7 +81,7 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
                     <FormItem>
                         <FormLabel>Avatar</FormLabel>
                         <FormControl>
-                            <ImageHolder onChangeImage={onChangeImage} imageUrl={avatar} />
+                            <ImageHolder onChangeImage={onChangeImage} deleteImage={deleteImage} imageUrl={avatar} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
