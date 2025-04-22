@@ -19,8 +19,6 @@ export async function getUserProfile(username: string): Promise<ServiceResult<Ge
             data
         }
     } catch (error) {
-        console.error(error)
-
         return handleApiError(error)
     }
 }
