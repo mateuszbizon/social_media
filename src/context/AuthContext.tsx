@@ -10,6 +10,7 @@ type AuthContextType = {
     saveUser: (user: User, token: string) => void
     logoutUser: () => void
     isAuthor: (userId: string) => boolean
+    isAuthLoading: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -24,6 +25,7 @@ export function useAuthContext() {
 
 function AuthContextProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
+    const [isAuthLoading, setIsAuthLoading] = useState(true)
 
     function saveUser(user: User, token: string) {
         setUser(user)
@@ -41,12 +43,16 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         const handleCheckUserAuth = async () => {
+            setIsAuthLoading(true)
+
             try {
                 const data = await checkUserAuth()
 
                 setUser(data.user)
             } catch (error) {
                 logoutUser()
+            } finally {
+                setIsAuthLoading(false)
             }
         }
 
@@ -70,7 +76,7 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
     }, [user])
 
   return (
-    <AuthContext.Provider value={{ user, saveUser, logoutUser, isAuthor }}>
+    <AuthContext.Provider value={{ user, saveUser, logoutUser, isAuthor, isAuthLoading }}>
         {children}
     </AuthContext.Provider>
   )

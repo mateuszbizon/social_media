@@ -1,4 +1,4 @@
-import { GetUserProfileResponse, SearchUsersResponse, SignInResponse } from "@/types/userResponse";
+import { GetUserProfileResponse, SearchUsersResponse, SignInResponse, UpdateUserProfileResponse } from "@/types/userResponse";
 import { API } from ".";
 import { SignInSchema } from "../validations/signInSchema";
 import { ServiceResult } from "@/types";
@@ -26,6 +26,12 @@ export async function getUserProfile(username: string): Promise<ServiceResult<Ge
 
 export async function searchUsers(page: number, query: string) {
     const { data } = await API.get<SearchUsersResponse>(`/users/search-users?page=${page}&query=${query}`)
+
+    return data
+}
+
+export async function updateUserProfile(formData: FormData) {
+    const { data } = await API.patch<UpdateUserProfileResponse>(`/users/update-user-profile`, formData)
 
     return data
 }

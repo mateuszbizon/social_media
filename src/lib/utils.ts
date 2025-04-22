@@ -23,3 +23,17 @@ export function handleApiError(error: unknown): ServiceError {
         error: axiosError.response.data.message
     }
 }
+
+export async function getFileFromUrl(url: string): Promise<File | null> {
+    try {
+        const response = await fetch(url)
+        const blob = await response.blob()
+
+        const file = new File([blob], "image.jpg", { type: blob.type })
+
+        return file
+    } catch (error) {
+        console.error(error)
+        return null;
+    }
+}
