@@ -1,6 +1,7 @@
 "use client"
 
 import withAuth from '@/components/auth/withAuth'
+import UpdateUserPasswordForm from '@/components/forms/UpdateUserPasswordForm'
 import UpdateUserProfileForm from '@/components/forms/UpdateUserProfileForm'
 import { Button } from '@/components/ui/button'
 import { ProfileOptions } from '@/types'
@@ -30,6 +31,7 @@ function EditProfilePage({ user }: Props) {
                 {activeForm === "password" && "Change password"}
             </h2>
             {activeForm === "profile" && <UpdateUserProfileForm user={user} />}
+            {activeForm === "password" && <UpdateUserPasswordForm />}
         </div>
     </div>
   )
