@@ -2,11 +2,12 @@
 
 import { userPasswordSchema, UserPasswordSchema } from '@/lib/validations/userPasswordSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import React, { use } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import useUpdateUserPassword from '@/lib/hooks/services/users/useUpdateUserPassword'
 
 function UpdateUserPasswordForm() {
     const form = useForm<UserPasswordSchema>({
@@ -17,9 +18,15 @@ function UpdateUserPasswordForm() {
             confirmPassword: ""
         }
     })
+    const { handleUpdateUserPassword } = useUpdateUserPassword()
 
-    function onSubmit(data: UserPasswordSchema) {
-        console.log(data)
+    async function onSubmit(data: UserPasswordSchema) {
+        try {
+            await handleUpdateUserPassword(data)
+            form.reset()
+        } catch (error) {
+            console.error(error)
+        }
     }
 
   return (
