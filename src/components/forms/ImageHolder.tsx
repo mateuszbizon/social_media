@@ -12,9 +12,11 @@ type ImageHolderProps = {
 function ImageHolder({ onChangeImage, imageUrl, isAvatar = true, deleteImage }: ImageHolderProps) {
   return (
     <div>
-        <Button type='button' variant={"outline"} size={"sm"} className='mb-3' onClick={deleteImage}>
-            Remove image
-        </Button>
+        {imageUrl && (
+            <Button type='button' variant={"outline"} size={"sm"} className='mb-3' onClick={deleteImage}>
+                Remove image
+            </Button>
+        )}
         <label htmlFor='image' className={`block ${isAvatar ? "size-[170px]" : "w-full aspect-video"} rounded-2xl cursor-pointer overflow-hidden`}>
             <input id='image' type='file' className='hidden' onChange={onChangeImage} />
             {imageUrl ? (

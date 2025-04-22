@@ -11,6 +11,7 @@ import ImageHolder from './ImageHolder'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getFileFromUrl } from '@/lib/utils'
 import useUpdateUserProfile from '@/lib/hooks/services/users/useUpdateUserProfile'
+import CircleLoading from '../ui/circleLoading'
 
 type UpdateUserProfileFormProps = {
     user: User
@@ -18,6 +19,7 @@ type UpdateUserProfileFormProps = {
 
 function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
     const [avatar, setAvatar] = useState<string | null>(user.avatar)
+    const [isImageLoading, setIsImageLoading] = useState(false)
     const form = useForm<UserProfileSchema>({
         resolver: zodResolver(userProfileSchema),
         defaultValues: {
@@ -31,6 +33,8 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
 
     useEffect(() => {
         const handleGetFile = async () => {
+            setIsImageLoading(true)
+
             if (user.avatar) {
                 const file = await getFileFromUrl(user.avatar)
 
@@ -38,6 +42,8 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
                     form.setValue('avatar', file)
                 }
             }
+
+            setIsImageLoading(false)
         }
 
         handleGetFile()
@@ -69,6 +75,10 @@ function UpdateUserProfileForm({ user }: UpdateUserProfileFormProps) {
         formData.append('avatar', data.avatar)
 
         await handleUpdateUserProfile(formData)
+    }
+
+    if (isImageLoading) {
+        return <CircleLoading className='mx-auto' />
     }
 
   return (
