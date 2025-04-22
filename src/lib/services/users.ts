@@ -3,6 +3,7 @@ import { API } from ".";
 import { SignInSchema } from "../validations/signInSchema";
 import { ServiceResult } from "@/types";
 import { handleApiError } from "../utils";
+import { UserPasswordSchema } from "../validations/userPasswordSchema";
 
 export async function signIn(userData: SignInSchema): Promise<SignInResponse> {
     const { data } = await API.post(`/users/sign-in`, userData)
@@ -32,6 +33,12 @@ export async function searchUsers(page: number, query: string) {
 
 export async function updateUserProfile(formData: FormData) {
     const { data } = await API.patch<UpdateUserProfileResponse>(`/users/update-user-profile`, formData)
+
+    return data
+}
+
+export async function updateUserPassword(postData: UserPasswordSchema) {
+    const { data } = await API.patch(`/users/update-user-password`, postData)
 
     return data
 }
