@@ -8,5 +8,9 @@ export const USERNAME_MIN_LENGTH_MESSAGE = `Username length must be atleast ${US
 export const USERNAME_MAX_LENGTH_MESSAGE = `Username length must be maximum ${USERNAME_MAX_LENGTH}`
 export const USERNAME_NO_WHITE_SPACES = "Username can't include white spaces"
 
+export const PASSWORD_MIN_LENGTH = 8
+export const PASSWORD_MIN_LENGTH_MESSAGE = `Password length must be atleast ${PASSWORD_MIN_LENGTH}`
+export const PASSWORDS_NOT_EQUAL = "Passwords don't match"
+
 export const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png"]
 export const FILE_TYPE_NOT_ALLOWED = "Not allowed file type. JPG or PNG allowed"
