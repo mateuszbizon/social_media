@@ -6,6 +6,7 @@ import SidebarCard from '../cards/SidebarCard'
 import SearchUsers from './SearchUsers'
 import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
 import SidebarAuthBtn from './SidebarAuthBtn'
+import SidebarProfileBtn from './SidebarProfileBtn'
 
 function Sidebar() {
     const { isOpen } = useSidebar()
@@ -20,6 +21,9 @@ function Sidebar() {
                         <SidebarCard item={item} />
                     </li>
                 ))}
+                <li>
+                    <SidebarProfileBtn />
+                </li>
             </ul>
             <div className='mt-auto'>
                 <SidebarAuthBtn />
