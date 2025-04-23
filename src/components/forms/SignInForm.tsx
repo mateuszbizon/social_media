@@ -8,6 +8,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import useSignIn from '@/lib/hooks/services/users/useSignIn'
+import useShowPassword from '@/lib/hooks/useShowPassword'
+import { Checkbox } from '../ui/checkbox'
+import { Label } from '../ui/label'
 
 function SignInForm() {
     const { handleSignIn } = useSignIn()
@@ -18,6 +21,7 @@ function SignInForm() {
             password: ""
         }
     })
+    const { passwordShown, passwordType, togglePassword } = useShowPassword()
 
     async function onSubmit(data: SignInSchema) {
         await handleSignIn(data)
@@ -46,12 +50,18 @@ function SignInForm() {
                     <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                            <Input type='password' placeholder='Password' {...field} />
+                            <Input type={passwordType} placeholder='Password' {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
             />
+            <div className="flex items-center space-x-2">
+                <Checkbox id="password" onCheckedChange={togglePassword} checked={passwordShown} />
+                <Label htmlFor="password">
+                    Show password
+                </Label>
+            </div>
             <Button type='submit' className='w-full' disabled={form.formState.isSubmitting}>
                 {form.formState.isSubmitting ? "Signing in..." : "Sign in"}
             </Button>

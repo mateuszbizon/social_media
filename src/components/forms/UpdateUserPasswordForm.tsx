@@ -10,6 +10,7 @@ import { Button } from '../ui/button'
 import useUpdateUserPassword from '@/lib/hooks/services/users/useUpdateUserPassword'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
+import useShowPassword from '@/lib/hooks/useShowPassword'
 
 function UpdateUserPasswordForm() {
     const form = useForm<UserPasswordSchema>({
@@ -21,8 +22,7 @@ function UpdateUserPasswordForm() {
         }
     })
     const { handleUpdateUserPassword } = useUpdateUserPassword()
-    const [passwordShown, setPasswordShown] = useState(false)
-    const passwordType = passwordShown ? "text" : "password"
+    const { passwordShown, passwordType, togglePassword } = useShowPassword()
 
     async function onSubmit(data: UserPasswordSchema) {
         try {
@@ -76,7 +76,7 @@ function UpdateUserPasswordForm() {
                 )}
             />
             <div className="flex items-center space-x-2">
-                <Checkbox id="password" onCheckedChange={() => setPasswordShown(prev => !prev)} checked={passwordShown} />
+                <Checkbox id="password" onCheckedChange={togglePassword} checked={passwordShown} />
                 <Label htmlFor="password">
                     Show password
                 </Label>
