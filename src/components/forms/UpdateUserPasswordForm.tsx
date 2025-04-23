@@ -1,30 +1,36 @@
 "use client"
 
-import { signInSchema, SignInSchema } from '@/lib/validations/signInSchema'
+import { userPasswordSchema, UserPasswordSchema } from '@/lib/validations/userPasswordSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import useSignIn from '@/lib/hooks/services/users/useSignIn'
-import useShowPassword from '@/lib/hooks/useShowPassword'
+import useUpdateUserPassword from '@/lib/hooks/services/users/useUpdateUserPassword'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
+import useShowPassword from '@/lib/hooks/useShowPassword'
 
-function SignInForm() {
-    const { handleSignIn } = useSignIn()
-    const form = useForm<SignInSchema>({
-        resolver: zodResolver(signInSchema),
+function UpdateUserPasswordForm() {
+    const form = useForm<UserPasswordSchema>({
+        resolver: zodResolver(userPasswordSchema),
         defaultValues: {
-            username: "",
-            password: ""
+            oldPassword: "",
+            password: "",
+            confirmPassword: ""
         }
     })
+    const { handleUpdateUserPassword } = useUpdateUserPassword()
     const { passwordShown, passwordType, togglePassword } = useShowPassword()
 
-    async function onSubmit(data: SignInSchema) {
-        await handleSignIn(data)
+    async function onSubmit(data: UserPasswordSchema) {
+        try {
+            await handleUpdateUserPassword(data)
+            form.reset()
+        } catch (error) {
+            console.error(error)
+        }
     }
 
   return (
@@ -32,12 +38,12 @@ function SignInForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
             <FormField
                 control={form.control}
-                name='username'
+                name='oldPassword'
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Username</FormLabel>
+                        <FormLabel>Old password</FormLabel>
                         <FormControl>
-                            <Input placeholder='Username' {...field} />
+                            <Input type={passwordType} placeholder='Old password' {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -56,18 +62,31 @@ function SignInForm() {
                     </FormItem>
                 )}
             />
+            <FormField
+                control={form.control}
+                name='confirmPassword'
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Confirm password</FormLabel>
+                        <FormControl>
+                            <Input type={passwordType} placeholder='Confirm password' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
             <div className="flex items-center space-x-2">
                 <Checkbox id="password" onCheckedChange={togglePassword} checked={passwordShown} />
                 <Label htmlFor="password">
                     Show password
                 </Label>
             </div>
-            <Button type='submit' className='w-full' disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? "Signing in..." : "Sign in"}
+            <Button className='w-full' type='submit' disabled={form.formState.isSubmitting}>
+                {form.formState.isSubmitting ? "Submitting..." : "Update password"}
             </Button>
         </form>
     </Form>
   )
 }
 
-export default SignInForm
+export default UpdateUserPasswordForm
