@@ -2,6 +2,7 @@ import { GetPostResponse } from '@/types/postResponse'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import PostLike from './PostLike'
 
 type SinglePostProps = GetPostResponse
 
@@ -33,9 +34,11 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
                 </div>
             )}
 
-            <div className='space-x-5'>
-                {likes.length}
-                {commentsCount}
+            <div className='flex items-center gap-5'>
+                <PostLike likes={likes} authorId={author.id} />
+                <div>
+                    {commentsCount}
+                </div>
             </div>
         </div>
         {post.image && (
