@@ -1,3 +1,4 @@
+import SinglePost from '@/components/posts/SinglePost'
 import { getSinglePost } from '@/lib/services/posts'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -14,10 +15,17 @@ async function SinglePostPage({ params }: Props) {
 
     if (postResult.error) throw new Error(postResult.error)
 
-    console.log(postResult.data)
-
   return (
-    <div>SinglePostPage</div>
+    <div>
+        {postResult.data && (
+            <SinglePost 
+                post={postResult.data.post} 
+                author={postResult.data.author} 
+                commentsCount={postResult.data.commentsCount} 
+                likes={postResult.data.likes} 
+            />
+        )}
+    </div>
   )
 }
 
