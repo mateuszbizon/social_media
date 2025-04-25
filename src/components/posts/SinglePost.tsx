@@ -9,7 +9,7 @@ type SinglePostProps = GetPostResponse
 
 function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
   return (
-    <div className={`grid gap-5 ${post.image && "grid-cols-2"} rounded-2xl p-5 border border-gray-2`}>
+    <div className={`grid gap-5 ${post.image && "md:grid-cols-2"} rounded-2xl p-5 border border-gray-2`}>
         <div className='space-y-5'>
             <div className='flex justify-between gap-2'>
                 <div className='flex items-center space-x-2'>
