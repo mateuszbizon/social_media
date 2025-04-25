@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import PostLike from './PostLike'
+import { MessageCircle } from 'lucide-react'
 
 type SinglePostProps = GetPostResponse
 
@@ -36,8 +37,9 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
 
             <div className='flex items-center gap-5'>
                 <PostLike likes={likes} authorId={author.id} />
-                <div>
-                    {commentsCount}
+                <div className='flex gap-3 items-center'>
+                    <MessageCircle />
+                    <span className='text-black-2 font-medium text-lg'>{commentsCount}</span>
                 </div>
             </div>
         </div>
