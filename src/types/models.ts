@@ -14,3 +14,10 @@ export type Post = {
     image: string | null;
     authorId: string;
 }
+
+export type PostLike = {
+    id: string;
+    postId: string;
+    userId: string;
+    createdAt: Date;
+}

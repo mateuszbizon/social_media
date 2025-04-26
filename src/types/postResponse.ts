@@ -1,4 +1,4 @@
-import { Post } from "./models"
+import { Post, PostLike, User } from "./models"
 
 export type UserPost = Pick<Post, "id" | "image" | "content" | "createdAt"> & {
     likeCount: number
@@ -10,4 +10,11 @@ export type GetUserPostsResponse = {
     currentPage: number
     totalPosts: number
     nextPage: number | null
+}
+
+export type GetPostResponse = {
+    post: Pick<Post, "id" | "content" | "image" | "createdAt">
+    author: Pick<User, "username" | "avatar" | "id">
+    commentsCount: number
+    likes: Pick<PostLike, "userId">[]
 }

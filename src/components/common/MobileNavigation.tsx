@@ -4,18 +4,19 @@ import React from 'react'
 import SidebarCard from '../cards/SidebarCard'
 import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
 import SidebarAuthBtn from './SidebarAuthBtn'
+import SidebarProfileBtn from './SidebarProfileBtn'
 
 function MobileNavigation() {
   return (
     <>
-        <div className='fixed top-0 w-full p-3 bg-white flex items-center justify-between md:hidden z-1'>
+        <div className='fixed top-0 w-full px-3 py-2 bg-white flex items-center justify-between md:hidden z-1'>
             <h1 className='text-xl font-bold gradient-text'>Matgram</h1>
             <div>
                 <SidebarAuthBtn />
             </div>
         </div>
 
-        <div className='fixed bottom-0 w-full p-3 bg-white md:hidden z-1'>
+        <div className='fixed bottom-0 w-full px-3 py-2 bg-white md:hidden z-1'>
             <nav>
                 <ul className='flex justify-center items-center'>
                     {SIDEBAR_ITEMS.map(item => ((
@@ -23,6 +24,9 @@ function MobileNavigation() {
                             <SidebarCard item={item} />
                         </li>
                     )))}
+                    <li>
+                        <SidebarProfileBtn />
+                    </li>
                 </ul>
             </nav>
         </div>
