@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuthContext } from '@/context/AuthContext'
 import useLikePost from '@/lib/hooks/services/posts/useLikePost'
 import { PostLike as PostLikeType } from '@/types/models'
 import { GetPostResponse } from '@/types/postResponse'
@@ -8,21 +9,23 @@ import React, { useState } from 'react'
 
 type PostLikeProps = {
     likes: GetPostResponse["likes"]
-    authorId: string
     postId: string
 }
 
-function PostLike({ likes: likesArray, authorId, postId }: PostLikeProps) {
+function PostLike({ likes: likesArray, postId }: PostLikeProps) {
+    const { user } = useAuthContext()
     const [likes, setLikes] = useState(likesArray)
     const { handleLikePost } = useLikePost()
-    const isLiked = likes.some(like => like.userId === authorId)
+    const isLiked = likes.some(like => like.userId === user?.id)
 
     async function handleLike() {
+        if (!user) return
+
         if (isLiked) {
-            setLikes(likes.filter(like => like.userId !== authorId))
+            setLikes(likes.filter(like => like.userId !== user?.id))
         } else {
             const newLike: Pick<PostLikeType, "userId"> = {
-                userId: authorId,
+                userId: user.id,
             }
             setLikes([...likes, newLike])
         }
