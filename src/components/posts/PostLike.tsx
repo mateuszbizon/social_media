@@ -1,5 +1,6 @@
 "use client"
 
+import useLikePost from '@/lib/hooks/services/posts/useLikePost'
 import { PostLike as PostLikeType } from '@/types/models'
 import { GetPostResponse } from '@/types/postResponse'
 import { Heart } from 'lucide-react'
@@ -8,13 +9,15 @@ import React, { useState } from 'react'
 type PostLikeProps = {
     likes: GetPostResponse["likes"]
     authorId: string
+    postId: string
 }
 
-function PostLike({ likes: likesArray, authorId }: PostLikeProps) {
+function PostLike({ likes: likesArray, authorId, postId }: PostLikeProps) {
     const [likes, setLikes] = useState(likesArray)
+    const { handleLikePost } = useLikePost()
     const isLiked = likes.some(like => like.userId === authorId)
 
-    function handleLike() {
+    async function handleLike() {
         if (isLiked) {
             setLikes(likes.filter(like => like.userId !== authorId))
         } else {
@@ -23,6 +26,8 @@ function PostLike({ likes: likesArray, authorId }: PostLikeProps) {
             }
             setLikes([...likes, newLike])
         }
+
+        await handleLikePost(postId)
     }
 
   return (
