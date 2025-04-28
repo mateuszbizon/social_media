@@ -35,9 +35,13 @@ function PostLike({ likes: likesArray, postId }: PostLikeProps) {
 
   return (
     <div className='flex items-center gap-3'>
-        <button onClick={handleLike} className='cursor-pointer'>
+        {user ? (
+            <button onClick={handleLike} className='cursor-pointer'>
+                <Heart className={`${isLiked && "fill-red-2 stroke-red-2 transition duration-200"}`} />
+            </button>
+        ) : (
             <Heart className={`${isLiked && "fill-red-2 stroke-red-2 transition duration-200"}`} />
-        </button>
+        )}
         <span className='text-black-2 font-medium text-lg'>{likes.length}</span>
     </div>
   )
