@@ -36,7 +36,7 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
             )}
 
             <div className='flex items-center gap-5'>
-                <PostLike likes={likes} authorId={author.id} />
+                <PostLike likes={likes} postId={post.id} />
                 <div className='flex gap-3 items-center'>
                     <MessageCircle />
                     <span className='text-black-2 font-medium text-lg'>{commentsCount}</span>

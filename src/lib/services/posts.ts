@@ -20,3 +20,9 @@ export async function getSinglePost(postId: string): Promise<ServiceResult<GetPo
         return handleApiError(error)
     }
 }
+
+export async function likePost(postId: string) {
+    const { data } = await API.patch(`/post/like-post/${postId}`)
+
+    return data
+}
