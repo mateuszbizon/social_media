@@ -1,7 +1,9 @@
+"use client"
+
 import { PostComment } from '@/types/commentResponse'
 import Link from 'next/link'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { buttonVariants } from '../ui/button'
 import moment from "moment"
 
@@ -10,6 +12,8 @@ type PostCommentCardProps = {
 }
 
 function PostCommentCard({ comment }: PostCommentCardProps) {
+    const [commentLikes, setCommentLikes] = useState(comment.likes)
+
   return (
     <div className='flex justify-between items-center'>
         <div className='flex space-x-2'>
@@ -22,13 +26,16 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
             <div className='space-y-1'>
                 <p className='space-x-2 text-black-2 text-sm'>
                     <Link href={`/user/${comment.author.username}`} target='_blank' className={`${buttonVariants({ variant: "link", size: "link" })} text-sm`}>
-                        <span className='font-medium'>{comment.author.username}</span>
+                        <span>{comment.author.username}</span>
                     </Link>
                     <span>
                         {comment.content}
                     </span>
                 </p>
-                <p className='text-gray-2 line-clamp-1 text-sm'>{moment(comment.createdAt.toString()).fromNow()}</p>
+                <div className='flex gap-3 text-gray-2 text-sm'>
+                    <span>{moment(comment.createdAt.toString()).fromNow()}</span>
+                    <span className='font-medium'>{commentLikes.length} likes</span>
+                </div>
             </div>
         </div>
     </div>
