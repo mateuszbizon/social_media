@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSidebar } from '@/context/SidebarContext'
 import { SidebarItem } from '@/types'
 import { usePathname } from 'next/navigation'
+import { useAuthContext } from '@/context/AuthContext'
 
 type SidebarCardProps = {
     item: SidebarItem
@@ -11,9 +12,12 @@ type SidebarCardProps = {
 
 function SidebarCard({ item }: SidebarCardProps) {
     const { isOpen, chooseAction } = useSidebar()
+    const { user } = useAuthContext()
     const pathname = usePathname()
     const currentPath = item.isLink && pathname.includes(item.href)
     const Icon = item.icon
+
+    if (item.needAuth && !user) return null
 
   return (
     <>

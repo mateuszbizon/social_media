@@ -5,6 +5,7 @@ export type SidebarAction = "searchUsers"
 export type SidebarItem = {
     name: string
     icon: LucideIcon
+    needAuth: boolean
 } & ({
     isLink: true
     href: string
