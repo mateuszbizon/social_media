@@ -7,6 +7,7 @@ import CircleLoading from '../ui/circleLoading'
 import { Button } from '../ui/button'
 import FlatList from '../common/FlatList'
 import { useInView } from 'react-intersection-observer'
+import PostCommentCard from '../cards/PostCommentCard'
 
 type PostCommentsProps = {
     postId: string
@@ -44,9 +45,7 @@ function PostComments({ postId }: PostCommentsProps) {
                 <FlatList
                     data={page.comments}
                     renderItem={(comment) => (
-                        <div>
-                            {comment.content}
-                        </div>
+                        <PostCommentCard comment={comment} />
                     )}
                     keyExtractor={(comment) => comment.id}
                     key={page.currentPage}
