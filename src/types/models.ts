@@ -21,3 +21,19 @@ export type PostLike = {
     userId: string;
     createdAt: Date;
 }
+
+export type Comment = {
+    id: string;
+    postId: string;
+    content: string;
+    authorId: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type CommentLike = {
+    id: string;
+    commentId: string;
+    userId: string;
+    createdAt: Date;
+}

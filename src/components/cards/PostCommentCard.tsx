@@ -1,0 +1,45 @@
+"use client"
+
+import { PostComment } from '@/types/commentResponse'
+import Link from 'next/link'
+import Image from 'next/image'
+import React, { useState } from 'react'
+import { buttonVariants } from '../ui/button'
+import moment from "moment"
+
+type PostCommentCardProps = {
+    comment: PostComment
+}
+
+function PostCommentCard({ comment }: PostCommentCardProps) {
+    const [commentLikes, setCommentLikes] = useState(comment.likes)
+
+  return (
+    <div className='flex justify-between items-center'>
+        <div className='flex space-x-2'>
+            <Link href={`/user/${comment.author.username}`} target='_blank'>
+                <div className='relative size-10 rounded-full overflow-hidden'>
+                    <Image src={comment.author.avatar ?? "/user_empty.jpg"} alt='Author image' fill className='object-cover' />
+                </div>
+            </Link>
+
+            <div className='space-y-1'>
+                <p className='space-x-2 text-black-2 text-sm'>
+                    <Link href={`/user/${comment.author.username}`} target='_blank' className={`${buttonVariants({ variant: "link", size: "link" })} text-sm`}>
+                        <span>{comment.author.username}</span>
+                    </Link>
+                    <span>
+                        {comment.content}
+                    </span>
+                </p>
+                <div className='flex gap-3 text-gray-2 text-sm'>
+                    <span>{moment(comment.createdAt.toString()).fromNow()}</span>
+                    <span className='font-medium'>{commentLikes.length} likes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  )
+}
+
+export default PostCommentCard

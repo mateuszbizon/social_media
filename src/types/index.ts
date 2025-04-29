@@ -25,6 +25,10 @@ export type SearchUsersQueryParams = {
     query: string
 }
 
+export type PostCommentsQueryParams = {
+    sort: "popular" | "desc"
+}
+
 export type ServiceError = {
     status?: number
     error?: string
