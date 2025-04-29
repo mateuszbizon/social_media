@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import PostLike from './PostLike'
 import { MessageCircle } from 'lucide-react'
+import PostComments from '../comments/PostComments'
 
 type SinglePostProps = GetPostResponse
 
@@ -42,6 +43,8 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
                     <span className='text-black-2 font-medium text-lg'>{commentsCount}</span>
                 </div>
             </div>
+
+            <PostComments postId={post.id} />
         </div>
         {post.image && (
             <div className='hidden md:block'>
