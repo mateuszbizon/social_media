@@ -5,6 +5,7 @@ import React from 'react'
 import PostLike from './PostLike'
 import { MessageCircle } from 'lucide-react'
 import PostComments from '../comments/PostComments'
+import moment from 'moment'
 
 type SinglePostProps = GetPostResponse
 
@@ -24,7 +25,7 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
                             <Link href={`/user/${author.username}`} target='_blank'>
                                 <p className='text-black-2 font-medium line-clamp-1'>{author.username}</p>
                             </Link>
-                            <p className='text-gray-2 line-clamp-1 text-sm'>{post.createdAt.toString()}</p>
+                            <p className='text-gray-2 line-clamp-1 text-sm'>{moment(post.createdAt.toString()).fromNow()}</p>
                         </div>
                     </div>
                 </div>
