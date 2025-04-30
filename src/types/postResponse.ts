@@ -18,3 +18,7 @@ export type GetPostResponse = {
     commentsCount: number
     likes: Pick<PostLike, "userId">[]
 }
+
+export type CreatePostResponse = {
+    post: Post
+}

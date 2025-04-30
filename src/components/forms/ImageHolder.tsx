@@ -17,7 +17,7 @@ function ImageHolder({ onChangeImage, imageUrl, isAvatar = true, deleteImage }: 
                 Remove image
             </Button>
         )}
-        <label htmlFor='image' className={`block ${isAvatar ? "size-[170px]" : "w-full aspect-video"} rounded-2xl cursor-pointer overflow-hidden`}>
+        <label htmlFor='image' className={`block ${isAvatar ? "size-[170px]" : "w-full aspect-video max-h-[250px]"} rounded-2xl cursor-pointer overflow-hidden`}>
             <input id='image' type='file' className='hidden' onChange={onChangeImage} />
             {imageUrl ? (
                 <div className='group relative size-full'>

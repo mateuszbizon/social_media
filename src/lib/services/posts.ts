@@ -1,4 +1,4 @@
-import { GetPostResponse, GetUserPostsResponse } from "@/types/postResponse";
+import { CreatePostResponse, GetPostResponse, GetUserPostsResponse } from "@/types/postResponse";
 import { API } from ".";
 import { ServiceResult } from "@/types";
 import { handleApiError } from "../utils";
@@ -23,6 +23,12 @@ export async function getSinglePost(postId: string): Promise<ServiceResult<GetPo
 
 export async function likePost(postId: string) {
     const { data } = await API.patch(`/post/like-post/${postId}`)
+
+    return data
+}
+
+export async function createPost(formData: FormData) {
+    const { data } = await API.post<CreatePostResponse>("/post/create-post", formData)
 
     return data
 }

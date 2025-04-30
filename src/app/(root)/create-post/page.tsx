@@ -1,0 +1,18 @@
+"use client"
+
+import withAuth from '@/components/auth/withAuth'
+import PostForm from '@/components/forms/PostForm'
+import React from 'react'
+
+function CreatePostPage() {
+  return (
+    <div>
+        <h2 className='heading2 text-black-2 mb-5'>Create Post</h2>
+        <div className='border border-gray-2 rounded-xl p-5 shadow-xl'>
+            <PostForm />
+        </div>
+    </div>
+  )
+}
+
+export default withAuth(CreatePostPage)
