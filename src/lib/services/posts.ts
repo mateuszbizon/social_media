@@ -26,3 +26,9 @@ export async function likePost(postId: string) {
 
     return data
 }
+
+export async function createPost(formData: FormData) {
+    const { data } = await API.post("/post/create-post", formData)
+
+    return data
+}
