@@ -11,6 +11,7 @@ import { getFileFromUrl } from '@/lib/utils'
 import CircleLoading from '../ui/circleLoading'
 import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
+import useCreatePost from '@/lib/hooks/services/posts/useCreatePost'
 
 type PostFormProps = {
     post?: Post
@@ -19,6 +20,7 @@ type PostFormProps = {
 function PostForm({ post }: PostFormProps) {
     const [postImage, setPostImage] = useState<string | null>(post ? post.image : null)
     const [isImageLoading, setIsImageLoading] = useState(false)
+    const { handleCreatePost } = useCreatePost()
     const form = useForm<PostSchema>({
         resolver: zodResolver(postSchema),
         defaultValues: {
@@ -63,8 +65,23 @@ function PostForm({ post }: PostFormProps) {
         form.setValue('image', undefined)
     }
 
-    function onSubmit(data: PostSchema) {
+    async function onSubmit(data: PostSchema) {
         console.log(data)
+
+        if (!post) {
+            const formData = new FormData()
+            formData.append('content', data.content)
+            formData.append('image', data.image)
+
+            await handleCreatePost(formData, {
+                onSuccess: () => {
+                    form.reset()
+                    setPostImage(null)
+                }
+            })
+        } else {
+            console.log("Todo: update post")
+        }
     }
 
     if (post && isImageLoading) {

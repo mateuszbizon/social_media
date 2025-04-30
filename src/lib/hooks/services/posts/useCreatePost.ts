@@ -12,7 +12,7 @@ function useCreatePost() {
         mutationFn: createPost,
         onSuccess: (data) => {
             toast.success(MESSAGES.post.created)
-            router.push(`/post/${data.id}`)
+            router.push(`/post/${data.post.id}`)
         },
         onError: (error: AxiosError<ErrorResponse>) => {
             toast.error(error.response?.data.message)
