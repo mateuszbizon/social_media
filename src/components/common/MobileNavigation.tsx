@@ -5,8 +5,11 @@ import SidebarCard from '../cards/SidebarCard'
 import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
 import SidebarAuthBtn from './SidebarAuthBtn'
 import SidebarProfileBtn from './SidebarProfileBtn'
+import { useAuthContext } from '@/context/AuthContext'
 
 function MobileNavigation() {
+    const { user } = useAuthContext()
+
   return (
     <>
         <div className='fixed top-0 w-full px-3 py-2 bg-white flex items-center justify-between md:hidden z-1'>
@@ -24,9 +27,13 @@ function MobileNavigation() {
                             <SidebarCard item={item} />
                         </li>
                     )))}
-                    <li>
-                        <SidebarProfileBtn />
-                    </li>
+                    {user && (
+                        <>
+                            <li>
+                                <SidebarProfileBtn />
+                            </li>
+                        </>
+                    )}
                 </ul>
             </nav>
         </div>

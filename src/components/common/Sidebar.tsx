@@ -7,9 +7,11 @@ import SearchUsers from './SearchUsers'
 import { SIDEBAR_ITEMS } from '@/constants/sidebarItems'
 import SidebarAuthBtn from './SidebarAuthBtn'
 import SidebarProfileBtn from './SidebarProfileBtn'
+import { useAuthContext } from '@/context/AuthContext'
 
 function Sidebar() {
     const { isOpen } = useSidebar()
+    const { user } = useAuthContext()
 
   return (
     <>
@@ -21,9 +23,13 @@ function Sidebar() {
                         <SidebarCard item={item} />
                     </li>
                 ))}
-                <li>
-                    <SidebarProfileBtn />
-                </li>
+                {user && (
+                    <>
+                        <li>
+                            <SidebarProfileBtn />
+                        </li>
+                    </>
+                )}
             </ul>
             <div className='mt-auto'>
                 <SidebarAuthBtn />
