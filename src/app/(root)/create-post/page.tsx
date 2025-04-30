@@ -1,3 +1,6 @@
+"use client"
+
+import withAuth from '@/components/auth/withAuth'
 import PostForm from '@/components/forms/PostForm'
 import React from 'react'
 
@@ -12,4 +15,4 @@ function CreatePostPage() {
   )
 }
 
-export default CreatePostPage
+export default withAuth(CreatePostPage)
