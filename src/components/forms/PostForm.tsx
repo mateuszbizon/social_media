@@ -81,7 +81,7 @@ function PostForm({ post }: PostFormProps) {
                     <FormItem>
                         <FormLabel>Post content</FormLabel>
                         <FormControl>
-                            <Textarea placeholder='Content' {...field} className='resize-none'></Textarea>
+                            <Textarea placeholder='Content' {...field} className='resize-none min-h-24'></Textarea>
                         </FormControl>
                         <FormMessage />
                     </FormItem>
