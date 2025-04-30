@@ -92,7 +92,7 @@ function PostForm({ post }: PostFormProps) {
                 name='image'
                 render={() => (
                     <FormItem>
-                        <FormLabel>Avatar</FormLabel>
+                        <FormLabel>Post image</FormLabel>
                         <FormControl>
                             <ImageHolder isAvatar={false} onChangeImage={onChangeImage} deleteImage={deleteImage} imageUrl={postImage} />
                         </FormControl>
