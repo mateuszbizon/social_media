@@ -1,15 +1,22 @@
+"use client"
+
 import { GetPostResponse } from '@/types/postResponse'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import PostLike from './PostLike'
-import { MessageCircle } from 'lucide-react'
+import { Ellipsis, MessageCircle } from 'lucide-react'
 import PostComments from '../comments/PostComments'
 import moment from 'moment'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { Button } from '../ui/button'
+import { useAuthContext } from '@/context/AuthContext'
 
 type SinglePostProps = GetPostResponse
 
 function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
+    const { isAuthor } = useAuthContext()
+
   return (
     <div className='space-y-5 rounded-2xl p-5 border border-gray-2'>
         <div className={`grid gap-5 ${post.image && "md:grid-cols-2"}`}>
@@ -28,6 +35,23 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
                             <p className='text-gray-2 line-clamp-1 text-sm'>{moment(post.createdAt.toString()).fromNow()}</p>
                         </div>
                     </div>
+
+                    {isAuthor(author.id) && (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant={"transparent"} size={"icon"}>
+                                    <Ellipsis className='size-5' />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuItem asChild>
+                                    <Link href={`/edit-post/${post.id}`}>
+                                        Edit post
+                                    </Link>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    )}
                 </div>
 
                 <p className='font-medium text-black-2'>{post.content}</p>
