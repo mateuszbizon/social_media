@@ -40,7 +40,7 @@ export async function getBasicPost(postId: string) {
     return data
 }
 
-export async function updatePost(formData: FormData, postId: string) {
+export async function updatePost({ formData, postId }: { formData: FormData, postId: string }) {
     const { data } = await API.patch<CreatePostResponse>(`/post/update-post/${postId}`, formData)
 
     return data

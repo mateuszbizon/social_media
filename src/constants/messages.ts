@@ -5,6 +5,7 @@ export const MESSAGES = {
     },
     post: {
         created: "Post created",
+        updated: "Post updated"
     },
     network: {
         fail: "No internet connection. Check conenction and try again"
