@@ -2,6 +2,7 @@ import { CreatePostResponse, GetPostResponse, GetUserPostsResponse } from "@/typ
 import { API } from ".";
 import { ServiceResult } from "@/types";
 import { handleApiError } from "../utils";
+import { Post } from "@/types/models";
 
 export async function getUserPosts(page: number, sort: string, userId: string) {
     const { data } = await API.get<GetUserPostsResponse>(`/post/get-user-posts/${userId}?page=${page}&sort=${sort}`)
@@ -29,6 +30,12 @@ export async function likePost(postId: string) {
 
 export async function createPost(formData: FormData) {
     const { data } = await API.post<CreatePostResponse>("/post/create-post", formData)
+
+    return data
+}
+
+export async function getBasicPost(postId: string) {
+    const { data } = await API.get<Post>(`/post/get-basic-post/${postId}`)
 
     return data
 }
