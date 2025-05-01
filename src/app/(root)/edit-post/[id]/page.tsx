@@ -2,6 +2,7 @@
 
 import withAuth from '@/components/auth/withAuth'
 import MainError from '@/components/errors/MainError'
+import PostForm from '@/components/forms/PostForm'
 import CircleLoading from '@/components/ui/circleLoading'
 import useGetBasicPost from '@/lib/hooks/services/posts/useGetBasicPost'
 import { User } from '@/types/models'
@@ -25,7 +26,12 @@ function EditPostPage({ user }: Props) {
     if (data?.authorId !== user.id) return <MainError message='Forbidden' />
 
   return (
-    <div>EditPostPage</div>
+    <div>
+        <h2 className='heading2 text-black-2 mb-5'>Edit post</h2>
+        <div className='border border-gray-2 rounded-xl p-5 shadow-xl'>
+            <PostForm post={data} />
+        </div>
+    </div>
   )
 }
 

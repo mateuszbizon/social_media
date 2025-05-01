@@ -7,7 +7,7 @@ type Props = {
 
 function useGetBasicPost({ postId }: Props) {
     const { data, isError, error, isPending } = useQuery({
-        queryKey: ['getBasicPost'],
+        queryKey: ['getBasicPost', postId],
         queryFn: () => getBasicPost(postId)
     })
 
