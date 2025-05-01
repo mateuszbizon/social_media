@@ -12,6 +12,7 @@ import CircleLoading from '../ui/circleLoading'
 import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
 import useCreatePost from '@/lib/hooks/services/posts/useCreatePost'
+import useUpdatePost from '@/lib/hooks/services/posts/useUpdatePost'
 
 type PostFormProps = {
     post?: Post
@@ -21,6 +22,7 @@ function PostForm({ post }: PostFormProps) {
     const [postImage, setPostImage] = useState<string | null>(post ? post.image : null)
     const [isImageLoading, setIsImageLoading] = useState(false)
     const { handleCreatePost } = useCreatePost()
+    const { handleUpdatePost } = useUpdatePost()
     const form = useForm<PostSchema>({
         resolver: zodResolver(postSchema),
         defaultValues: {
@@ -68,11 +70,11 @@ function PostForm({ post }: PostFormProps) {
     async function onSubmit(data: PostSchema) {
         console.log(data)
 
-        if (!post) {
-            const formData = new FormData()
-            formData.append('content', data.content)
-            formData.append('image', data.image)
+        const formData = new FormData()
+        formData.append('content', data.content)
+        formData.append('image', data.image)
 
+        if (!post) {
             await handleCreatePost(formData, {
                 onSuccess: () => {
                     form.reset()
@@ -80,7 +82,10 @@ function PostForm({ post }: PostFormProps) {
                 }
             })
         } else {
-            console.log("Todo: update post")
+            await handleUpdatePost({
+                formData,
+                postId: post.id
+            })
         }
     }
 
