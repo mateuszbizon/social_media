@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import { Trash2 } from 'lucide-react'
 import { useAuthContext } from '@/context/AuthContext'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
+import useDeletePostComment from '@/lib/hooks/services/comments/useDeletePostComment'
 
 type PostCommentDeleteProps = {
     commentId: string
@@ -13,7 +14,13 @@ type PostCommentDeleteProps = {
 
 function PostCommentDelete({ commentId, authorId }: PostCommentDeleteProps) {
     const { isAuthor } = useAuthContext()
+    const { handleDeletePostComment, isPending } = useDeletePostComment()
     const [deleteCommentOpen, setDeleteCommentOpen] = useState(false)
+
+    async function onDeleteComment() {
+        await handleDeletePostComment(commentId)
+        setDeleteCommentOpen(false)
+    }
 
     if (!isAuthor(authorId)) return null
 
@@ -35,7 +42,7 @@ function PostCommentDelete({ commentId, authorId }: PostCommentDeleteProps) {
                         Cancel
                     </Button>
                 </DialogClose>
-                <Button variant={"destructive"} size={"sm"}>
+                <Button variant={"destructive"} size={"sm"} onClick={onDeleteComment} disabled={isPending}>
                     Delete
                 </Button>
             </DialogFooter>
