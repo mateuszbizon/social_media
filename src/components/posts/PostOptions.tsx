@@ -19,12 +19,9 @@ function PostOptions({ postId, authorId }: PostOptionsProps) {
     const { handleDeletePost, isPending } = useDeletePost()
     const [deletePostOpen, setDeletePostOpen] = useState(false)
 
-    function onDeletePost() {
-        handleDeletePost(postId, {
-            onSuccess: () => {
-                setDeletePostOpen(false)
-            }
-        })
+    async function onDeletePost() {
+        await handleDeletePost(postId)
+        setDeletePostOpen(false)
     }
 
     if (!isAuthor(authorId)) return null
