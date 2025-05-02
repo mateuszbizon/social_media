@@ -15,5 +15,5 @@ export type GetPostCommentsResponse = {
 }
 
 export type CreatePostCommentResponse = {
-    comment: Comment
+    comment: PostComment
 }

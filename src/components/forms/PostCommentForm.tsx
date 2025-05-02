@@ -8,12 +8,17 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Textarea } from '../ui/textarea'
 import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '../ui/button'
+import useCreatePostComment from '@/lib/hooks/services/comments/useCreatePostComment'
 
 type PostCommentFormProps = {
     postId: string
 }
 
 function PostCommentForm({ postId }: PostCommentFormProps) {
+    const { handleCreatePostComment } = useCreatePostComment({
+        postId,
+        sort: "desc"
+    })
     const { user } = useAuthContext()
     const form = useForm<PostCommentSchema>({
         resolver: zodResolver(postCommentSchema),
@@ -22,8 +27,17 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
         }
     })
 
-    function onSubmit(data: PostCommentSchema) {
+    async function onSubmit(data: PostCommentSchema) {
         console.log(data)
+
+        await handleCreatePostComment({
+            commentData: data,
+            postId
+        }, {
+            onSuccess: () => {
+                form.reset()
+            }
+        })
     }
 
     if (!user) return null

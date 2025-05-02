@@ -8,7 +8,7 @@ export async function getPostComments(page: number, sort: string, postId: string
     return data
 }
 
-export async function createPostComment(commentData: PostCommentSchema, postId: string) {
+export async function createPostComment({ commentData, postId }: { commentData: PostCommentSchema, postId: string }) {
     const { data } = await API.post<CreatePostCommentResponse>(`/comment/create-comment/${postId}`, commentData)
 
     return data
