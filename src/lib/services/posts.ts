@@ -44,5 +44,10 @@ export async function updatePost({ formData, postId }: { formData: FormData, pos
     const { data } = await API.patch<CreatePostResponse>(`/post/update-post/${postId}`, formData)
 
     return data
-    
+}
+
+export async function deletePost(postId: string) {
+    const { data } = await API.delete<CreatePostResponse>(`/post/delete-post/${postId}`)
+
+    return data
 }
