@@ -17,3 +17,7 @@ export type GetPostCommentsResponse = {
 export type CreatePostCommentResponse = {
     comment: PostComment
 }
+
+export type DeletePostCommentResponse = {
+    comment: Comment
+}
