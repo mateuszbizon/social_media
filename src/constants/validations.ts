@@ -14,5 +14,7 @@ export const PASSWORDS_NOT_EQUAL = "Passwords don't match"
 
 export const POST_CONTENT_EMPTY = "Content can't be empty"
 
+export const POST_COMMENT_CONTENT_EMPTY = "Comment can't be empty"
+
 export const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png"]
 export const FILE_TYPE_NOT_ALLOWED = "Not allowed file type. JPG or PNG allowed"

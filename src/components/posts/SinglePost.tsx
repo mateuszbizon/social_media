@@ -7,6 +7,7 @@ import { MessageCircle } from 'lucide-react'
 import PostComments from '../comments/PostComments'
 import moment from 'moment'
 import PostOptions from './PostOptions'
+import PostCommentForm from '../forms/PostCommentForm'
 
 type SinglePostProps = GetPostResponse
 
@@ -58,6 +59,8 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
                     <span className='text-black-2 font-medium text-lg'>{commentsCount}</span>
                 </div>
             </div>
+
+            <PostCommentForm postId={post.id} />
 
             <PostComments postId={post.id} />
         </div>

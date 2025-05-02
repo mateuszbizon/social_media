@@ -13,3 +13,7 @@ export type GetPostCommentsResponse = {
     totalComments: number
     nextPage: number | null
 }
+
+export type CreatePostCommentResponse = {
+    comment: PostComment
+}
