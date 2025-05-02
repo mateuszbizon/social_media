@@ -1,12 +1,13 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { Button } from '../ui/button'
 import { Ellipsis } from 'lucide-react'
 import Link from 'next/link'
 import { useAuthContext } from '@/context/AuthContext'
+import useDeletePost from '@/lib/hooks/services/posts/useDeletePost'
 
 type PostOptionsProps = {
     postId: string
@@ -15,11 +16,21 @@ type PostOptionsProps = {
 
 function PostOptions({ postId, authorId }: PostOptionsProps) {
     const { isAuthor } = useAuthContext()
+    const { handleDeletePost, isPending } = useDeletePost()
+    const [deletePostOpen, setDeletePostOpen] = useState(false)
+
+    function onDeletePost() {
+        handleDeletePost(postId, {
+            onSuccess: () => {
+                setDeletePostOpen(false)
+            }
+        })
+    }
 
     if (!isAuthor(authorId)) return null
 
   return (
-    <Dialog>
+    <Dialog open={deletePostOpen} onOpenChange={setDeletePostOpen}>
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant={"transparent"} size={"icon"}>
@@ -52,7 +63,7 @@ function PostOptions({ postId, authorId }: PostOptionsProps) {
                         Cancel
                     </Button>
                 </DialogClose>
-                <Button variant={"destructive"} size={"sm"}>
+                <Button variant={"destructive"} size={"sm"} onClick={onDeletePost} disabled={isPending}>
                     Delete
                 </Button>
             </DialogFooter>

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 
 function useDeletePost() {
     const router = useRouter()
-    const { mutateAsync: handleDeletePost } = useMutation({
+    const { mutateAsync: handleDeletePost, isPending } = useMutation({
         mutationFn: deletePost,
         onSuccess: () => {
             router.back()
@@ -21,6 +21,7 @@ function useDeletePost() {
 
   return {
     handleDeletePost,
+    isPending,
   }
 }
 
