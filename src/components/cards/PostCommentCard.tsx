@@ -6,6 +6,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { buttonVariants } from '../ui/button'
 import moment from "moment"
+import PostCommentDelete from '../comments/PostCommentDelete'
 
 type PostCommentCardProps = {
     comment: PostComment
@@ -35,6 +36,7 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                 <div className='flex gap-3 text-gray-2 text-sm'>
                     <span>{moment(comment.createdAt.toString()).fromNow()}</span>
                     <span className='font-medium'>{commentLikes.length} likes</span>
+                    <PostCommentDelete commentId={comment.id} authorId={comment.author.id} />
                 </div>
             </div>
         </div>

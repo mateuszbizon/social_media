@@ -2,7 +2,7 @@ import { CommentLike, User, Comment } from "./models"
 
 export type PostComment = Pick<Comment, "id" | "content" | "createdAt"> & {
     likes: Pick<CommentLike, "userId">[]
-    author: Pick<User, "username" | "avatar">
+    author: Pick<User, "username" | "avatar" | "id">
     replyCount: number
 }
 
