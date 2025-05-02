@@ -9,7 +9,11 @@ import { Textarea } from '../ui/textarea'
 import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '../ui/button'
 
-function PostCommentForm() {
+type PostCommentFormProps = {
+    postId: string
+}
+
+function PostCommentForm({ postId }: PostCommentFormProps) {
     const { user } = useAuthContext()
     const form = useForm<PostCommentSchema>({
         resolver: zodResolver(postCommentSchema),

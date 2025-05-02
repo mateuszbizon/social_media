@@ -60,7 +60,7 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
                 </div>
             </div>
 
-            <PostCommentForm />
+            <PostCommentForm postId={post.id} />
 
             <PostComments postId={post.id} />
         </div>
