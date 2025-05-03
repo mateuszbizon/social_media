@@ -36,7 +36,7 @@ function PostCommentLike({ likes, setLikesCount, commentId }: PostCommentLikePro
 
   return (
     <Button variant={"transparent"} size={"link"} className={'hover:bg-transparent text-black-2 hover:text-red-2/50'} onClick={onLike}>
-        <Heart className={`${isLiked && "fill-red-2 stroke-red-2 transition duration-200"}`} />
+        <Heart className={`${isLiked && "like-icon-liked"}`} />
     </Button>
   )
 }
