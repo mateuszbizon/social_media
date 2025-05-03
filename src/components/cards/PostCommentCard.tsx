@@ -7,13 +7,14 @@ import React, { useState } from 'react'
 import { buttonVariants } from '../ui/button'
 import moment from "moment"
 import PostCommentDelete from '../comments/PostCommentDelete'
+import PostCommentLike from '../comments/PostCommentLike'
 
 type PostCommentCardProps = {
     comment: PostComment
 }
 
 function PostCommentCard({ comment }: PostCommentCardProps) {
-    const [commentLikes, setCommentLikes] = useState(comment.likes)
+    const [likesCount, setLikesCount] = useState(comment.likes.length)
 
   return (
     <div className='flex justify-between items-center'>
@@ -35,7 +36,8 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                 </p>
                 <div className='flex gap-3 text-gray-2 text-sm'>
                     <span>{moment(comment.createdAt.toString()).fromNow()}</span>
-                    <span className='font-medium'>{commentLikes.length} likes</span>
+                    <span className='font-medium'>{likesCount} likes</span>
+                    <PostCommentLike likes={comment.likes} setLikesCount={setLikesCount} commentId={comment.id} />
                     <PostCommentDelete commentId={comment.id} authorId={comment.author.id} />
                 </div>
             </div>

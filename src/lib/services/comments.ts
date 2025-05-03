@@ -19,3 +19,9 @@ export async function deletePostComment(commentId: string) {
 
     return data
 }
+
+export async function likePostComment(commentId: string) {
+    const { data } = await API.patch(`/comment/like-comment/${commentId}`)
+
+    return data
+}

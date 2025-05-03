@@ -48,6 +48,10 @@
     .basic-form-container {
         @apply w-full max-w-[400px] mx-auto
     }
+
+    .like-icon-liked {
+        @apply fill-red-2 stroke-red-2 transition duration-200
+    }
 }
 
 @layer utilities {
