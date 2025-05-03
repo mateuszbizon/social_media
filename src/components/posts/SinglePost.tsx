@@ -1,7 +1,9 @@
+"use client"
+
 import { GetPostResponse } from '@/types/postResponse'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import PostLike from './PostLike'
 import { MessageCircle } from 'lucide-react'
 import PostComments from '../comments/PostComments'
@@ -12,6 +14,8 @@ import PostCommentForm from '../forms/PostCommentForm'
 type SinglePostProps = GetPostResponse
 
 function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
+    const [likesCount, setLikesCount] = useState(likes.length)
+
   return (
     <div className='space-y-5 rounded-2xl p-5 border border-gray-2'>
         <div className={`grid gap-5 ${post.image && "md:grid-cols-2"}`}>
@@ -53,7 +57,10 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
 
         <div className='space-y-5'>
             <div className='flex items-center gap-5'>
-                <PostLike likes={likes} postId={post.id} />
+                <div className='flex gap-3 items-center'>
+                    <PostLike likes={likes} postId={post.id} setLikesCount={setLikesCount} />
+                    <span className='text-black-2 font-medium text-lg'>{likesCount}</span>
+                </div>
                 <div className='flex gap-3 items-center'>
                     <MessageCircle />
                     <span className='text-black-2 font-medium text-lg'>{commentsCount}</span>

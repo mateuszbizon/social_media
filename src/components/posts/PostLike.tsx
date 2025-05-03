@@ -2,48 +2,42 @@
 
 import { useAuthContext } from '@/context/AuthContext'
 import useLikePost from '@/lib/hooks/services/posts/useLikePost'
-import { PostLike as PostLikeType } from '@/types/models'
-import { GetPostResponse } from '@/types/postResponse'
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
+import { Button } from '../ui/button'
 
 type PostLikeProps = {
-    likes: GetPostResponse["likes"]
+    likes: { userId: string }[]
+    setLikesCount: React.Dispatch<React.SetStateAction<number>>
     postId: string
 }
 
-function PostLike({ likes: likesArray, postId }: PostLikeProps) {
+function PostLike({ likes, postId, setLikesCount}: PostLikeProps) {
     const { user } = useAuthContext()
-    const [likes, setLikes] = useState(likesArray)
     const { handleLikePost } = useLikePost()
-    const isLiked = likes.some(like => like.userId === user?.id)
+    const isLikedCheck = likes.some(like => like.userId === user?.id)
+    const [isLiked, setIsLiked] = useState(isLikedCheck)
 
     async function handleLike() {
         if (!user) return
 
         if (isLiked) {
-            setLikes(likes.filter(like => like.userId !== user?.id))
+            setLikesCount(prev => prev - 1)
+            setIsLiked(false)
         } else {
-            const newLike: Pick<PostLikeType, "userId"> = {
-                userId: user.id,
-            }
-            setLikes([...likes, newLike])
+            setLikesCount(prev => prev + 1)
+            setIsLiked(true)
         }
 
         await handleLikePost(postId)
     }
 
+    if (!user) return <Heart className='text-black-2' />
+
   return (
-    <div className='flex items-center gap-3'>
-        {user ? (
-            <button onClick={handleLike} className='cursor-pointer'>
-                <Heart className={`${isLiked && "fill-red-2 stroke-red-2 transition duration-200"}`} />
-            </button>
-        ) : (
-            <Heart className={`${isLiked && "fill-red-2 stroke-red-2 transition duration-200"}`} />
-        )}
-        <span className='text-black-2 font-medium text-lg'>{likes.length}</span>
-    </div>
+    <Button variant={"transparent"} size={"link"} className={'hover:bg-transparent text-black-2 hover:text-red-2/50'} onClick={handleLike}>
+        <Heart className={`size-6 ${isLiked && "fill-red-2 stroke-red-2 transition duration-200"}`} />
+    </Button>
   )
 }
 
