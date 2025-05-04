@@ -1,28 +1,21 @@
 "use client"
 
 import useGetCommentReplies from '@/lib/hooks/services/replies/useGetCommentReplies'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-intersection-observer'
+import React from 'react'
 import CircleLoading from '../ui/circleLoading'
 import FlatList from '../common/FlatList'
+import { Button } from '../ui/button'
 
 type CommentRepliesProps = {
     commentId: string
 }
 
 function CommentReplies({ commentId }: CommentRepliesProps) {
-    const { data, isError, error, fetchNextPage, isFetchingNextPage, isPending } = useGetCommentReplies({
+    const { data, isError, error, fetchNextPage, isFetchingNextPage, isPending, hasNextPage } = useGetCommentReplies({
         commentId
     })
-    const { ref, inView } = useInView()
 
-    useEffect(() => {
-        if (inView) {
-            fetchNextPage()
-        }
-    }, [inView, fetchNextPage])
-
-    if (isPending) return <CircleLoading className='mx-auto' />
+    if (isPending) return <CircleLoading className='mx-auto w-8' />
 
     if (isError) return <div className='text-black-2 font-medium text-center'>{error?.message}</div>
 
@@ -42,7 +35,13 @@ function CommentReplies({ commentId }: CommentRepliesProps) {
             />
         ))}
 
-        <div ref={ref}>{isFetchingNextPage && <CircleLoading className='mx-auto' />}</div>
+        {hasNextPage && (
+            <div className='flex justify-center'>
+                <Button size={"sm"} onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+                    {isFetchingNextPage ? "Loading..." : "Show more"}
+                </Button>
+            </div>
+        )}
     </div>
   )
 }
