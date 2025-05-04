@@ -7,7 +7,7 @@ type Props = {
 
 function useGetCommentReplies({ commentId }: Props) {
     const { data, isError, error, fetchNextPage, isFetchingNextPage, isPending } = useInfiniteQuery({
-        queryKey: ['getCommentReplies'],
+        queryKey: ['getCommentReplies', commentId],
         queryFn: ({ pageParam }) => getCommentReplies(commentId, pageParam),
         getNextPageParam: (lastPage) => lastPage.nextPage,
         initialPageParam: 1
