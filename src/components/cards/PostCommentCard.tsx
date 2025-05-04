@@ -48,7 +48,9 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                 {comment.replyCount > 0 && (
                     <>
                         {showReplies ? (
-                            <CommentReplies commentId={comment.id} />
+                            <div className='mt-3'>
+                                <CommentReplies commentId={comment.id} />
+                            </div>
                         ) : (
                             <Button variant={"transparent"} size={"sm"} className='text-black-2' onClick={() => setshowReplies(true)}>
                                 Show replies ({comment.replyCount}) <ChevronDown />

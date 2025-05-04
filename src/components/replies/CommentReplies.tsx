@@ -5,6 +5,7 @@ import React from 'react'
 import CircleLoading from '../ui/circleLoading'
 import FlatList from '../common/FlatList'
 import { Button } from '../ui/button'
+import CommentReplyCard from '../cards/CommentReplyCard'
 
 type CommentRepliesProps = {
     commentId: string
@@ -25,9 +26,7 @@ function CommentReplies({ commentId }: CommentRepliesProps) {
             <FlatList
                 data={page.replies}
                 renderItem={(reply) => (
-                    <div>
-                        {reply.content}
-                    </div>
+                    <CommentReplyCard reply={reply} />
                 )}
                 keyExtractor={(reply) => reply.id}
                 key={page.currentPage}
