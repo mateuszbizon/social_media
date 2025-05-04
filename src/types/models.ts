@@ -37,3 +37,19 @@ export type CommentLike = {
     userId: string;
     createdAt: Date;
 }
+
+export type Reply = {
+    commentId: string;
+    id: string;
+    content: string;
+    authorId: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type ReplyLike = {
+    id: string;
+    createdAt: Date;
+    userId: string;
+    replyId: string;
+}
