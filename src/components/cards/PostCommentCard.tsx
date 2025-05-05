@@ -10,6 +10,7 @@ import PostCommentDelete from '../comments/PostCommentDelete'
 import PostCommentLike from '../comments/PostCommentLike'
 import CommentReplies from '../replies/CommentReplies'
 import { ChevronDown } from 'lucide-react'
+import PostCommentReply from '../comments/PostCommentReply'
 
 type PostCommentCardProps = {
     comment: PostComment
@@ -43,6 +44,13 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                     <span>{moment(comment.createdAt.toString()).fromNow()}</span>
                     <span className='font-medium'>{likesCount} likes</span>
                     <PostCommentLike likes={comment.likes} setLikesCount={setLikesCount} commentId={comment.id} />
+                    <PostCommentReply 
+                        reply={{
+                            commentId: comment.id,
+                            replyingToId: comment.author.id,
+                            replyingTo: comment.author.username
+                        }}
+                    />
                     <PostCommentDelete commentId={comment.id} authorId={comment.author.id} />
                 </div>
                 {comment.replyCount > 0 && (

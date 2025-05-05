@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-type Reply = {
+export type Reply = {
     commentId: string
     replyingToId: string
     replyingTo: string
