@@ -25,9 +25,12 @@ function CommentReplyCard({ reply }: CommentReplyCardProps) {
         </div>
 
         <div className='space-y-1'>
+            <Link href={`/user/${reply.author.username}`} target='_blank' className={`${buttonVariants({ variant: "link", size: "link" })} text-sm text-black-2`}>
+                {reply.author.username}
+            </Link>
             <p className='space-x-2 text-black-2 text-sm'>
-                <Link href={`/user/${reply.author.username}`} target='_blank' className={`${buttonVariants({ variant: "link", size: "link" })} text-sm`}>
-                    <span>{reply.author.username}</span>
+                <Link href={`/user/${reply.replyingTo.username}`} target='_blank' className={`text-primary font-medium`}>
+                    @{reply.replyingTo.username}
                 </Link>
                 <span>
                     {reply.content}
