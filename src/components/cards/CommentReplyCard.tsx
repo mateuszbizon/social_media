@@ -6,12 +6,14 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import moment from 'moment'
 import { buttonVariants } from '../ui/button'
+import PostCommentReply from '../comments/PostCommentReply'
 
 type CommentReplyCardProps = {
     reply: CommentReply
+    commentId: string
 }
 
-function CommentReplyCard({ reply }: CommentReplyCardProps) {
+function CommentReplyCard({ reply, commentId }: CommentReplyCardProps) {
     const [likesCount, setLikesCount] = useState(reply.likes.length)
 
   return (
@@ -39,6 +41,13 @@ function CommentReplyCard({ reply }: CommentReplyCardProps) {
             <div className='flex gap-3 text-gray-2 text-sm'>
                 <span>{moment(reply.createdAt.toString()).fromNow()}</span>
                 <span className='font-medium'>{likesCount} likes</span>
+                <PostCommentReply 
+                    reply={{
+                        commentId,
+                        replyingToId: reply.author.id,
+                        replyingTo: reply.author.username
+                    }}
+                />
             </div>
         </div>
     </div>
