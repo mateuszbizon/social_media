@@ -42,6 +42,7 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                     {comment.content}
                 </span>
             </p>
+
             <div className='flex gap-3 text-gray-2 text-sm'>
                 <span>{moment(comment.createdAt.toString()).fromNow()}</span>
                 <span className='font-medium'>{likesCount} likes</span>
@@ -49,21 +50,21 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                 <PostCommentReply toggleReplyForm={toggleReplyForm} />
                 <PostCommentDelete commentId={comment.id} authorId={comment.author.id} />
             </div>
+
+            {comment.replyCount > 0 && !showReplies && (
+                <Button variant={"transparent"} size={"sm"} className='text-black-2' onClick={() => setshowReplies(true)}>
+                    Show replies ({comment.replyCount}) <ChevronDown />
+                </Button>
+            )}
+
             <div className={`${replyFormShow ? "block" : "hidden"}`}>
                 <CommentReplyForm commentId={comment.id} replyingToId={comment.author.id} closeReplyForm={closeReplyForm} />
             </div>
-            {comment.replyCount > 0 && (
-                <>
-                    {showReplies ? (
-                        <div className='mt-3'>
-                            <CommentReplies commentId={comment.id} />
-                        </div>
-                    ) : (
-                        <Button variant={"transparent"} size={"sm"} className='text-black-2' onClick={() => setshowReplies(true)}>
-                            Show replies ({comment.replyCount}) <ChevronDown />
-                        </Button>
-                    )}
-                </>
+            
+            {showReplies && (
+                <div className='mt-3'>
+                    <CommentReplies commentId={comment.id} />
+                </div>
             )}
         </div>
     </div>
