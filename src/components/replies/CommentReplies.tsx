@@ -26,7 +26,7 @@ function CommentReplies({ commentId }: CommentRepliesProps) {
             <FlatList
                 data={page.replies}
                 renderItem={(reply) => (
-                    <CommentReplyCard reply={reply} />
+                    <CommentReplyCard reply={reply} commentId={commentId} />
                 )}
                 keyExtractor={(reply) => reply.id}
                 key={page.currentPage}

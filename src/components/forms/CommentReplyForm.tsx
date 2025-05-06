@@ -1,25 +1,24 @@
 "use client"
 
+import useCreateCommentReply from '@/lib/hooks/services/replies/useCreateCommentReply'
 import { postCommentSchema, PostCommentSchema } from '@/lib/validations/postCommentSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
 import { Textarea } from '../ui/textarea'
-import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '../ui/button'
-import useCreatePostComment from '@/lib/hooks/services/comments/useCreatePostComment'
 
-type PostCommentFormProps = {
-    postId: string
+type CommentReplyFormProps = {
+    commentId: string
+    replyingToId: string
+    closeReplyForm: () => void
 }
 
-function PostCommentForm({ postId }: PostCommentFormProps) {
-    const { handleCreatePostComment } = useCreatePostComment({
-        postId,
-        sort: "desc"
+function CommentReplyForm({ commentId, replyingToId, closeReplyForm }: CommentReplyFormProps) {
+    const { handleCreateCommentReply } = useCreateCommentReply({
+        commentId
     })
-    const { user } = useAuthContext()
     const form = useForm<PostCommentSchema>({
         resolver: zodResolver(postCommentSchema),
         defaultValues: {
@@ -30,17 +29,17 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
     async function onSubmit(data: PostCommentSchema) {
         console.log(data)
 
-        await handleCreatePostComment({
-            commentData: data,
-            postId
+        await handleCreateCommentReply({
+            commentId,
+            replyingToId,
+            comment: data
         }, {
             onSuccess: () => {
                 form.reset()
+                closeReplyForm()
             }
         })
     }
-
-    if (!user) return null
 
   return (
     <Form {...form}>
@@ -50,17 +49,20 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
                 name="content"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel className='sr-only'>Comment</FormLabel>
+                        <FormLabel className='sr-only'>Reply</FormLabel>
                         <FormControl>
-                            <Textarea {...field} placeholder='Your comment' className='resize-none'></Textarea>
+                            <Textarea {...field} placeholder='Your reply' className='resize-none'></Textarea>
                         </FormControl>
                     </FormItem>
                 )}
             />
 
-            <div className='flex justify-end'>
+            <div className='flex justify-end gap-2'>
+                <Button type='button' size={"sm"} variant={"outline"} onClick={closeReplyForm}>
+                    Close
+                </Button>
                 <Button type='submit' size={"sm"}>
-                    Comment
+                    Reply
                 </Button>
             </div>
         </form>
@@ -68,4 +70,4 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
   )
 }
 
-export default PostCommentForm
+export default CommentReplyForm
