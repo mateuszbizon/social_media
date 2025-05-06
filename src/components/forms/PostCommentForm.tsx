@@ -10,6 +10,7 @@ import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '../ui/button'
 import useCreatePostComment from '@/lib/hooks/services/comments/useCreatePostComment'
 import useReplyStore from '@/lib/store/replyStore'
+import useCreateCommentReply from '@/lib/hooks/services/replies/useCreateCommentReply'
 
 type PostCommentFormProps = {
     postId: string
@@ -21,7 +22,10 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
         sort: "desc"
     })
     const { user } = useAuthContext()
-    const { reply } = useReplyStore()
+    const { reply, clearReply } = useReplyStore()
+    const { handleCreateCommentReply } = useCreateCommentReply({
+        commentId: reply?.commentId!
+    })
     const form = useForm<PostCommentSchema>({
         resolver: zodResolver(postCommentSchema),
         defaultValues: {
@@ -33,7 +37,17 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
         console.log(data)
 
         if (reply) {
-            console.log("To do: create reply")
+            await handleCreateCommentReply({
+                commentId: reply.commentId,
+                replyingToId: reply.replyingToId,
+                comment: data
+            }, {
+                onSuccess: () => {
+                    form.reset()
+                    clearReply()
+                }
+            })
+
             return
         }
 
@@ -62,7 +76,6 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
                         <FormControl>
                             <Textarea {...field} placeholder={`Your ${reply ? "reply" : "comment"}`} className='resize-none'></Textarea>
                         </FormControl>
-                        <FormMessage />
                     </FormItem>
                 )}
             />
