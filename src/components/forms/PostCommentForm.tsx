@@ -4,13 +4,11 @@ import { postCommentSchema, PostCommentSchema } from '@/lib/validations/postComm
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
 import { Textarea } from '../ui/textarea'
 import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '../ui/button'
 import useCreatePostComment from '@/lib/hooks/services/comments/useCreatePostComment'
-import useReplyStore from '@/lib/store/replyStore'
-import useCreateCommentReply from '@/lib/hooks/services/replies/useCreateCommentReply'
 
 type PostCommentFormProps = {
     postId: string
@@ -22,10 +20,6 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
         sort: "desc"
     })
     const { user } = useAuthContext()
-    const { reply, clearReply } = useReplyStore()
-    const { handleCreateCommentReply } = useCreateCommentReply({
-        commentId: reply?.commentId!
-    })
     const form = useForm<PostCommentSchema>({
         resolver: zodResolver(postCommentSchema),
         defaultValues: {
@@ -35,21 +29,6 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
 
     async function onSubmit(data: PostCommentSchema) {
         console.log(data)
-
-        if (reply) {
-            await handleCreateCommentReply({
-                commentId: reply.commentId,
-                replyingToId: reply.replyingToId,
-                comment: data
-            }, {
-                onSuccess: () => {
-                    form.reset()
-                    clearReply()
-                }
-            })
-
-            return
-        }
 
         await handleCreatePostComment({
             commentData: data,
@@ -70,11 +49,10 @@ function PostCommentForm({ postId }: PostCommentFormProps) {
                 control={form.control}
                 name="content"
                 render={({ field }) => (
-                    <FormItem className='relative'>
+                    <FormItem>
                         <FormLabel className='sr-only'>Comment</FormLabel>
-                        <p className={`absolute left-0 top-0 text-sm text-primary ${reply ? "-translate-y-5 opacity-100" : "translate-y-0 opacity-0 pointer-events-none"} transition-all`}>Replying to {reply?.replyingTo}</p>
                         <FormControl>
-                            <Textarea {...field} placeholder={`Your ${reply ? "reply" : "comment"}`} className='resize-none'></Textarea>
+                            <Textarea {...field} placeholder='Your comment' className='resize-none'></Textarea>
                         </FormControl>
                     </FormItem>
                 )}
