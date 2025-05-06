@@ -33,7 +33,7 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
             </Link>
         </div>
 
-        <div className='space-y-1'>
+        <div className='space-y-1 grow'>
             <p className='space-x-2 text-black-2 text-sm'>
                 <Link href={`/user/${comment.author.username}`} target='_blank' className={`${buttonVariants({ variant: "link", size: "link" })} text-sm`}>
                     <span>{comment.author.username}</span>
@@ -60,7 +60,7 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
             <div className={`${replyFormShow ? "block" : "hidden"}`}>
                 <CommentReplyForm commentId={comment.id} replyingToId={comment.author.id} closeReplyForm={closeReplyForm} />
             </div>
-            
+
             {showReplies && (
                 <div className='mt-3'>
                     <CommentReplies commentId={comment.id} />
