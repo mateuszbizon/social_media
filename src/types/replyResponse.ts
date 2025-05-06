@@ -13,3 +13,7 @@ export type GetCommentRepliesResponse = {
     totalReplies: number
     nextPage: number | null
 }
+
+export type CreateCommentReplyReponse = {
+    reply: CommentReply
+}
