@@ -8,6 +8,7 @@ import moment from 'moment'
 import { buttonVariants } from '../ui/button'
 import PostCommentReply from '../comments/PostCommentReply'
 import CommentReplyForm from '../forms/CommentReplyForm'
+import useReply from '@/lib/hooks/useReply'
 
 type CommentReplyCardProps = {
     reply: CommentReply
@@ -16,15 +17,7 @@ type CommentReplyCardProps = {
 
 function CommentReplyCard({ reply, commentId }: CommentReplyCardProps) {
     const [likesCount, setLikesCount] = useState(reply.likes.length)
-    const [replyFormShow, setReplyFormShow] = useState(false)
-
-    function toggleReplyForm() {
-        setReplyFormShow(prev => !prev)
-    }
-
-    function closeReplyForm() {
-        setReplyFormShow(false)
-    }
+    const { replyFormShow, toggleReplyForm, closeReplyForm } = useReply()
 
   return (
     <div className='space-y-2'>

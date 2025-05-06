@@ -12,6 +12,7 @@ import CommentReplies from '../replies/CommentReplies'
 import { ChevronDown } from 'lucide-react'
 import PostCommentReply from '../comments/PostCommentReply'
 import CommentReplyForm from '../forms/CommentReplyForm'
+import useReply from '@/lib/hooks/useReply'
 
 type PostCommentCardProps = {
     comment: PostComment
@@ -20,15 +21,7 @@ type PostCommentCardProps = {
 function PostCommentCard({ comment }: PostCommentCardProps) {
     const [likesCount, setLikesCount] = useState(comment.likes.length)
     const [showReplies, setshowReplies] = useState(false)
-    const [replyFormShow, setReplyFormShow] = useState(false)
-    
-    function toggleReplyForm() {
-        setReplyFormShow(prev => !prev)
-    }
-
-    function closeReplyForm() {
-        setReplyFormShow(false)
-    }
+    const { replyFormShow, toggleReplyForm, closeReplyForm } = useReply()
 
   return (
     <div className='flex space-x-2'>
