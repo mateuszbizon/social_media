@@ -2,7 +2,7 @@ import { MESSAGES } from '@/constants/messages'
 import { createCommentReply } from '@/lib/services/replies'
 import { ErrorResponse } from '@/types'
 import { GetCommentRepliesResponse } from '@/types/replyResponse'
-import { InfiniteData, QueryClient, useMutation } from '@tanstack/react-query'
+import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 
@@ -11,7 +11,7 @@ type Props = {
 }
 
 function useCreateCommentReply({ commentId }: Props) {
-    const queryClient = new QueryClient()
+    const queryClient = useQueryClient()
 
     const { mutateAsync: handleCreateCommentReply } = useMutation({
         mutationFn: createCommentReply,
