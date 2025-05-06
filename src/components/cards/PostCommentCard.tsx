@@ -44,13 +44,13 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
                     <span>{moment(comment.createdAt.toString()).fromNow()}</span>
                     <span className='font-medium'>{likesCount} likes</span>
                     <PostCommentLike likes={comment.likes} setLikesCount={setLikesCount} commentId={comment.id} />
-                    <PostCommentReply 
+                    {/* <PostCommentReply 
                         reply={{
                             commentId: comment.id,
                             replyingToId: comment.author.id,
                             replyingTo: comment.author.username
                         }}
-                    />
+                    /> */}
                     <PostCommentDelete commentId={comment.id} authorId={comment.author.id} />
                 </div>
                 {comment.replyCount > 0 && (

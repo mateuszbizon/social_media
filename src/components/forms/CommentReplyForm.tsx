@@ -12,9 +12,10 @@ import { Button } from '../ui/button'
 type CommentReplyFormProps = {
     commentId: string
     replyingToId: string
+    closeReplyForm: () => void
 }
 
-function CommentReplyForm({ commentId, replyingToId }: CommentReplyFormProps) {
+function CommentReplyForm({ commentId, replyingToId, closeReplyForm }: CommentReplyFormProps) {
     const { handleCreateCommentReply } = useCreateCommentReply({
         commentId
     })
@@ -35,6 +36,7 @@ function CommentReplyForm({ commentId, replyingToId }: CommentReplyFormProps) {
         }, {
             onSuccess: () => {
                 form.reset()
+                closeReplyForm()
             }
         })
     }
@@ -55,7 +57,10 @@ function CommentReplyForm({ commentId, replyingToId }: CommentReplyFormProps) {
                 )}
             />
 
-            <div className='flex justify-end'>
+            <div className='flex justify-end gap-2'>
+                <Button type='button' size={"sm"} variant={"outline"} onClick={closeReplyForm}>
+                    Close
+                </Button>
                 <Button type='submit' size={"sm"}>
                     Reply
                 </Button>
