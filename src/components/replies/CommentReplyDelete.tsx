@@ -3,6 +3,7 @@ import { Button } from '../ui/button'
 import { Trash2 } from 'lucide-react'
 import { useAuthContext } from '@/context/AuthContext'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
+import useDeleteCommentReply from '@/lib/hooks/services/replies/useDeleteCommentReply'
 
 type CommentReplyDeleteProps = {
     replyId: string
@@ -11,7 +12,13 @@ type CommentReplyDeleteProps = {
 
 function CommentReplyDelete({ replyId, authorId }: CommentReplyDeleteProps) {
     const { isAuthor } = useAuthContext()
+    const { handleDeleteCommentReply, isPending } = useDeleteCommentReply()
     const [deleteCommentOpen, setDeleteCommentOpen] = useState(false)
+
+    async function deleteReply() {
+        await handleDeleteCommentReply(replyId)
+        setDeleteCommentOpen(false)
+    }
 
     if (!isAuthor(authorId)) return null
 
@@ -33,7 +40,7 @@ function CommentReplyDelete({ replyId, authorId }: CommentReplyDeleteProps) {
                         Cancel
                     </Button>
                 </DialogClose>
-                <Button variant={"destructive"} size={"sm"}>
+                <Button variant={"destructive"} size={"sm"} onClick={deleteReply} disabled={isPending}>
                     Delete
                 </Button>
             </DialogFooter>

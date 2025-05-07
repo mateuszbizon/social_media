@@ -9,6 +9,7 @@ import { buttonVariants } from '../ui/button'
 import PostCommentReply from '../comments/PostCommentReply'
 import CommentReplyForm from '../forms/CommentReplyForm'
 import useReply from '@/lib/hooks/useReply'
+import CommentReplyDelete from '../replies/CommentReplyDelete'
 
 type CommentReplyCardProps = {
     reply: CommentReply
@@ -46,6 +47,7 @@ function CommentReplyCard({ reply, commentId }: CommentReplyCardProps) {
                     <span>{moment(reply.createdAt.toString()).fromNow()}</span>
                     <span className='font-medium'>{likesCount} likes</span>
                     <PostCommentReply toggleReplyForm={toggleReplyForm} />
+                    <CommentReplyDelete replyId={reply.id} authorId={reply.author.id} />
                 </div>
             </div>
         </div>
