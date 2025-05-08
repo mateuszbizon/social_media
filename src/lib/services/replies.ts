@@ -19,3 +19,9 @@ export async function deleteCommentReply(replyId: string) {
 
     return data
 }
+
+export async function likeCommentReply(replyId: string) {
+    const { data } = await API.patch(`/reply/like-reply/${replyId}`)
+
+    return data
+}
