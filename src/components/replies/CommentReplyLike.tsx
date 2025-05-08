@@ -4,6 +4,7 @@ import { useAuthContext } from '@/context/AuthContext'
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from '../ui/button'
+import useLikeCommentReply from '@/lib/hooks/services/replies/useLikeCommentReply'
 
 type CommentReplyLikeProps = {
     likes: { userId: string }[]
@@ -13,10 +14,11 @@ type CommentReplyLikeProps = {
 
 function CommentReplyLike({ likes, replyId, setLikesCount }: CommentReplyLikeProps) {
     const { user } = useAuthContext()
+    const { handleLikeCommentReply } = useLikeCommentReply()
     const isLikedCheck = likes.some(like => like.userId === user?.id)
     const [isLiked, setIsLiked] = useState(isLikedCheck)
 
-    function likeReply() {
+    async function likeReply() {
         if (!user) return
 
         if (isLiked) {
@@ -26,6 +28,8 @@ function CommentReplyLike({ likes, replyId, setLikesCount }: CommentReplyLikePro
             setLikesCount(prev => prev + 1)
             setIsLiked(true)
         }
+
+        await handleLikeCommentReply(replyId)
     }
 
     if (!user) return <Heart className='size-4 text-black-2' />
