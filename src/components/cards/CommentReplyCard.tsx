@@ -10,6 +10,7 @@ import PostCommentReply from '../comments/PostCommentReply'
 import CommentReplyForm from '../forms/CommentReplyForm'
 import useReply from '@/lib/hooks/useReply'
 import CommentReplyDelete from '../replies/CommentReplyDelete'
+import CommentReplyLike from '../replies/CommentReplyLike'
 
 type CommentReplyCardProps = {
     reply: CommentReply
@@ -46,6 +47,7 @@ function CommentReplyCard({ reply, commentId }: CommentReplyCardProps) {
                 <div className='flex gap-3 text-gray-2 text-sm'>
                     <span>{moment(reply.createdAt.toString()).fromNow()}</span>
                     <span className='font-medium'>{likesCount} likes</span>
+                    <CommentReplyLike replyId={reply.id} likes={reply.likes} setLikesCount={setLikesCount} />
                     <PostCommentReply toggleReplyForm={toggleReplyForm} />
                     <CommentReplyDelete replyId={reply.id} authorId={reply.author.id} />
                 </div>
