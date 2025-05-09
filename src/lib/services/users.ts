@@ -40,3 +40,9 @@ export async function updateUserPassword(postData: UserPasswordSchema) {
 
     return data
 }
+
+export async function followUser(userId: string) {
+    const { data } = await API.patch(`/users/follow-user/${userId}`)
+
+    return data
+}
