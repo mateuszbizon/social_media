@@ -4,6 +4,7 @@ import { useAuthContext } from '@/context/AuthContext'
 import { Follow } from '@/types/models'
 import React, { useState } from 'react'
 import { Button } from '../ui/button'
+import useFollowUser from '@/lib/hooks/services/users/useFollowUser'
 
 type FollowUserProps = {
     userToFollowId: string
@@ -12,15 +13,18 @@ type FollowUserProps = {
 
 function FollowUser({ userToFollowId, userFollowers }: FollowUserProps) {
     const { user, isAuthor } = useAuthContext()
+    const { handleFollowUser } = useFollowUser()
     const checkIsFollowed = userFollowers.some(follow => follow.followerId === user?.id)
     const [isFollowed, setIsFollowed] = useState(checkIsFollowed)
 
-    function followUser() {
+    async function followUser() {
         if (isFollowed) {
             setIsFollowed(false)
         } else {
             setIsFollowed(true)
         }
+
+        await handleFollowUser(userToFollowId)
     }
 
     if (!user || isAuthor(userToFollowId)) return null
