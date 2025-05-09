@@ -1,5 +1,5 @@
 import { SidebarItem } from "@/types";
-import { CirclePlus, House, Search } from "lucide-react";
+import { CirclePlus, Heart, House, Search } from "lucide-react";
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
@@ -21,6 +21,13 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
         icon: CirclePlus,
         isLink: true,
         href: "/create-post",
+        needAuth: true
+    },
+    {
+        name: "Liked posts",
+        icon: Heart,
+        isLink: true,
+        href: "/liked-posts",
         needAuth: true
     }
 ]
