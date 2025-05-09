@@ -51,3 +51,9 @@ export async function deletePost(postId: string) {
 
     return data
 }
+
+export async function getLikedPosts(page: number, sort: string) {
+    const { data } = await API.get<GetUserPostsResponse>(`/post/get-liked-posts?page=${page}&sort=${sort}`)
+
+    return data
+}
