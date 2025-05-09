@@ -1,4 +1,4 @@
-import { User } from "./models"
+import { Follow, User } from "./models"
 
 export type CheckUserAuthResponse = {
     user: User
@@ -14,6 +14,7 @@ export type GetUserProfileResponse = {
     postsCount: number
     followersCount: number
     followingCount: number
+    followers: Pick<Follow, "followerId">[]
 }
 
 export type SearchUser = Pick<User, "username" | "firstName" | "lastName" | "avatar"> & {

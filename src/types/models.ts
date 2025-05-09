@@ -53,3 +53,10 @@ export type ReplyLike = {
     userId: string;
     replyId: string;
 }
+
+export type Follow = {
+    id: string;
+    createdAt: Date;
+    followerId: string;
+    followingId: string;
+}
