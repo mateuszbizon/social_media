@@ -14,7 +14,7 @@ function SidebarCard({ item }: SidebarCardProps) {
     const { isOpen, chooseAction } = useSidebar()
     const { user } = useAuthContext()
     const pathname = usePathname()
-    const currentPath = item.isLink && pathname.includes(item.href)
+    const currentPath = item.isLink && pathname === item.href
     const Icon = item.icon
 
     if (item.needAuth && !user) return null
