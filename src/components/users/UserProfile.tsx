@@ -6,6 +6,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { useAuthContext } from '@/context/AuthContext'
+import FollowUser from './FollowUser'
 
 type UserProfileProps = {
     userProfile: GetUserProfileResponse
@@ -49,6 +50,7 @@ function UserProfile({ userProfile }: UserProfileProps) {
             <div>
                 <p className='text-black-2 text-lg md:text-xl text-center md:text-left'>{userProfile.user.firstName} {userProfile.user.lastName}</p>
             </div>
+            <FollowUser userToFollowId={userProfile.user.id} userFollowers={userProfile.followers} />
         </div>
     </div>
   )
