@@ -2,6 +2,7 @@ export const MESSAGES = {
     user: {
         profileUpdated: "Profile updated successfully",
         passwordUpdated: "Password updated successfully",
+        logout: "User has been logged out"
     },
     post: {
         created: "Post created",
