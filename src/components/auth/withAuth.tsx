@@ -16,7 +16,7 @@ function withAuth<P extends WithAuthProps>(Component: ComponentType<P>) {
 
     useEffect(() => {
         if (!user && !isAuthLoading) {
-            router.push("/sign-in")
+            router.replace("/sign-in")
         }
     }, [user, isAuthLoading])
 
