@@ -32,4 +32,5 @@ export type CreatePostResponse = {
 export type GetFeedResponse = {
     posts: FeedPost[]
     nextPage: number | null
+    currentPage: number
 }

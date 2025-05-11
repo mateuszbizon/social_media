@@ -26,6 +26,7 @@ function FeedPosts() {
         {data?.pages.map(page => (
             <FlatList 
                 data={page.posts}
+                key={page.currentPage}
                 keyExtractor={(post) => post.id}
                 renderItem={(post) => (
                     <div>
