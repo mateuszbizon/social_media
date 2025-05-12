@@ -1,4 +1,4 @@
-import { Post, PostLike, User } from "./models"
+import { Post, User } from "./models"
 
 export type UserPost = Pick<Post, "id" | "image" | "content" | "createdAt"> & {
     likeCount: number
@@ -7,8 +7,9 @@ export type UserPost = Pick<Post, "id" | "image" | "content" | "createdAt"> & {
 
 export type FeedPost = Pick<Post, "id" | "image" | "content" | "createdAt"> & {
     author: Pick<User, "username" | "avatar" | "id">
-    likes: Pick<PostLike, "userId">[]
+    likeCount: number
     commentCount: number
+    isLiked: boolean
 }
 
 export type GetUserPostsResponse = {
@@ -22,7 +23,8 @@ export type GetPostResponse = {
     post: Pick<Post, "id" | "content" | "image" | "createdAt">
     author: Pick<User, "username" | "avatar" | "id">
     commentsCount: number
-    likes: Pick<PostLike, "userId">[]
+    likesCount: number
+    isLiked: boolean
 }
 
 export type CreatePostResponse = {

@@ -22,7 +22,8 @@ async function SinglePostPage({ params }: Props) {
                 post={postResult.data.post} 
                 author={postResult.data.author} 
                 commentsCount={postResult.data.commentsCount} 
-                likes={postResult.data.likes} 
+                likesCount={postResult.data.likesCount}
+                isLiked={postResult.data.isLiked}
             />
         )}
     </div>

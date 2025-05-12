@@ -13,7 +13,7 @@ type FeedPostCardProps = {
 }
 
 function FeedPostCard({ post }: FeedPostCardProps) {
-    const [likesCount, setLikesCount] = useState(post.likes.length)
+    const [likesCount, setLikesCount] = useState(post.likeCount)
 
   return (
     <div className='bg-white p-5 rounded-2xl space-y-3 border border-gray-2/50'>
@@ -41,7 +41,7 @@ function FeedPostCard({ post }: FeedPostCardProps) {
 
         <div className='flex items-center gap-5'>
             <div className='flex gap-3 items-center'>
-                <PostLike likes={post.likes} postId={post.id} setLikesCount={setLikesCount} />
+                <PostLike isLiked={post.isLiked} postId={post.id} setLikesCount={setLikesCount} />
                 <span className='text-black-2 font-medium text-lg'>{likesCount}</span>
             </div>
             <div className='flex gap-3 items-center'>

@@ -13,8 +13,8 @@ import PostCommentForm from '../forms/PostCommentForm'
 
 type SinglePostProps = GetPostResponse
 
-function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
-    const [likesCount, setLikesCount] = useState(likes.length)
+function SinglePost({ post, author, commentsCount, likesCount: likesCountProp, isLiked }: SinglePostProps) {
+    const [likesCount, setLikesCount] = useState(likesCountProp)
 
   return (
     <div className='space-y-5 rounded-2xl p-5 border border-gray-2'>
@@ -58,7 +58,7 @@ function SinglePost({ post, author, commentsCount, likes }: SinglePostProps) {
         <div className='space-y-5'>
             <div className='flex items-center gap-5'>
                 <div className='flex gap-3 items-center'>
-                    <PostLike likes={likes} postId={post.id} setLikesCount={setLikesCount} />
+                    <PostLike isLiked={isLiked} postId={post.id} setLikesCount={setLikesCount} />
                     <span className='text-black-2 font-medium text-lg'>{likesCount}</span>
                 </div>
                 <div className='flex gap-3 items-center'>
