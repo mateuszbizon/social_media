@@ -7,16 +7,15 @@ import React, { useState } from 'react'
 import { Button } from '../ui/button'
 
 type PostLikeProps = {
-    likes: { userId: string }[]
+    isLiked: boolean
     setLikesCount: React.Dispatch<React.SetStateAction<number>>
     postId: string
 }
 
-function PostLike({ likes, postId, setLikesCount}: PostLikeProps) {
+function PostLike({ isLiked: isLikedProp, postId, setLikesCount}: PostLikeProps) {
     const { user } = useAuthContext()
     const { handleLikePost } = useLikePost()
-    const isLikedCheck = likes.some(like => like.userId === user?.id)
-    const [isLiked, setIsLiked] = useState(isLikedCheck)
+    const [isLiked, setIsLiked] = useState(isLikedProp)
 
     async function handleLike() {
         if (!user) return

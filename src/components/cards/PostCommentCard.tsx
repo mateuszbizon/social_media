@@ -19,7 +19,7 @@ type PostCommentCardProps = {
 }
 
 function PostCommentCard({ comment }: PostCommentCardProps) {
-    const [likesCount, setLikesCount] = useState(comment.likes.length)
+    const [likesCount, setLikesCount] = useState(comment.likeCount)
     const [showReplies, setshowReplies] = useState(false)
     const { replyFormShow, toggleReplyForm, closeReplyForm } = useReply()
 
@@ -46,7 +46,7 @@ function PostCommentCard({ comment }: PostCommentCardProps) {
             <div className='flex gap-3 text-gray-2 text-sm'>
                 <span>{moment(comment.createdAt.toString()).fromNow()}</span>
                 <span className='font-medium'>{likesCount} likes</span>
-                <PostCommentLike likes={comment.likes} setLikesCount={setLikesCount} commentId={comment.id} />
+                <PostCommentLike isLiked={comment.isLiked} setLikesCount={setLikesCount} commentId={comment.id} />
                 <PostCommentReply toggleReplyForm={toggleReplyForm} />
                 <PostCommentDelete commentId={comment.id} authorId={comment.author.id} />
             </div>

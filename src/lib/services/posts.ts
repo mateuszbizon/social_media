@@ -1,4 +1,4 @@
-import { CreatePostResponse, GetPostResponse, GetUserPostsResponse } from "@/types/postResponse";
+import { CreatePostResponse, GetFeedResponse, GetPostResponse, GetUserPostsResponse } from "@/types/postResponse";
 import { API } from ".";
 import { ServiceResult } from "@/types";
 import { handleApiError } from "../utils";
@@ -54,6 +54,12 @@ export async function deletePost(postId: string) {
 
 export async function getLikedPosts(page: number, sort: string) {
     const { data } = await API.get<GetUserPostsResponse>(`/post/get-liked-posts?page=${page}&sort=${sort}`)
+
+    return data
+}
+
+export async function getFeed(page: number) {
+    const { data } = await API.get<GetFeedResponse>(`/post/get-feed?page=${page}`)
 
     return data
 }

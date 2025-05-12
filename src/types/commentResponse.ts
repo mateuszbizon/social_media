@@ -1,9 +1,10 @@
-import { CommentLike, User, Comment } from "./models"
+import { User, Comment } from "./models"
 
 export type PostComment = Pick<Comment, "id" | "content" | "createdAt"> & {
-    likes: Pick<CommentLike, "userId">[]
     author: Pick<User, "username" | "avatar" | "id">
     replyCount: number
+    likeCount: number
+    isLiked: boolean
 }
 
 export type GetPostCommentsResponse = {
