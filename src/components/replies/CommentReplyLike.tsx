@@ -7,16 +7,15 @@ import { Button } from '../ui/button'
 import useLikeCommentReply from '@/lib/hooks/services/replies/useLikeCommentReply'
 
 type CommentReplyLikeProps = {
-    likes: { userId: string }[]
+    isLiked: boolean
     replyId: string
     setLikesCount: React.Dispatch<React.SetStateAction<number>>
 }
 
-function CommentReplyLike({ likes, replyId, setLikesCount }: CommentReplyLikeProps) {
+function CommentReplyLike({ isLiked: isLikedProp, replyId, setLikesCount }: CommentReplyLikeProps) {
     const { user } = useAuthContext()
     const { handleLikeCommentReply } = useLikeCommentReply()
-    const isLikedCheck = likes.some(like => like.userId === user?.id)
-    const [isLiked, setIsLiked] = useState(isLikedCheck)
+    const [isLiked, setIsLiked] = useState(isLikedProp)
 
     async function likeReply() {
         if (!user) return
