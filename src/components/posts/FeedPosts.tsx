@@ -6,6 +6,7 @@ import CircleLoading from '../ui/circleLoading'
 import MainError from '../errors/MainError'
 import { useInView } from 'react-intersection-observer'
 import FlatList from '../common/FlatList'
+import FeedPostCard from '../cards/FeedPostCard'
 
 function FeedPosts() {
     const { data, isError, error, isFetchingNextPage, fetchNextPage, isPending } = useGetFeed()
@@ -29,9 +30,7 @@ function FeedPosts() {
                 key={page.currentPage}
                 keyExtractor={(post) => post.id}
                 renderItem={(post) => (
-                    <div>
-                        {post.content}
-                    </div>
+                    <FeedPostCard post={post} />
                 )}
                 className='space-y-5'
             />
