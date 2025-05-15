@@ -2,7 +2,7 @@ import React from 'react'
 
 function ChatsPage() {
   return (
-    <div>all chats</div>
+    <div>ChatsPage</div>
   )
 }
 
