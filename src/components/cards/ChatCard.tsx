@@ -13,15 +13,20 @@ type ChatCardProps = {
 
 function ChatCard({ chat }: ChatCardProps) {
     const { user } = useAuthContext()
-    const { selectedChat, setSelectedChat } = useChatStore()
+    const { selectedChat, setSelectedChat, setChatUser } = useChatStore()
     const otherChatUser = getOtherChatUser(chat.participants, user?.id!)
     const isChatSelected = selectedChat?.id === chat.id
+
+    function selectChat() {
+        setSelectedChat(chat)
+        setChatUser(otherChatUser)
+    }
 
   return (
     <div className='flex flex-col'>
         <button 
             className={`flex gap-1 p-1 rounded-xl ${isChatSelected ? "bg-gray-2/50" : "hover:bg-gray-2/20"} cursor-pointer`} 
-            onClick={() => setSelectedChat(chat)}
+            onClick={selectChat}
         >
             <div className='relative size-10 rounded-full overflow-hidden'>
                 <Image src={otherChatUser.avatar ?? "/user_empty.jpg"} alt='User avatar' fill className='object-cover' />
