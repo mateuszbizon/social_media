@@ -25,7 +25,7 @@ function ChatCard({ chat }: ChatCardProps) {
   return (
     <div className='flex flex-col'>
         <button 
-            className={`flex gap-1 p-1 rounded-xl ${isChatSelected ? "bg-gray-2/50" : "hover:bg-gray-2/20"} cursor-pointer`} 
+            className={`flex gap-1 p-2 ${isChatSelected ? "bg-gray-2/50" : "hover:bg-gray-2/20"} cursor-pointer`} 
             onClick={selectChat}
         >
             <div className='relative size-10 rounded-full overflow-hidden'>
@@ -33,7 +33,7 @@ function ChatCard({ chat }: ChatCardProps) {
             </div>
             <div className='space-y-1'>
                 <p className='text-black-2 font-medium text-sm line-clamp-1'>{otherChatUser.username}</p>
-                <p className='text-gray-2 line-clamp-1 text-sm text-left'>message</p>
+                <p className='text-black-2 line-clamp-1 text-sm text-left'>message</p>
             </div>
         </button>
     </div>

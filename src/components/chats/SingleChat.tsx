@@ -10,7 +10,7 @@ function SingleChat() {
     const { selectedChat, chatUser } = useChatStore()
 
   return (
-    <div className='h-screen py-20 md:py-0'>
+    <div className='h-screen py-14 md:py-0'>
         {!selectedChat && (
             <div className='size-full flex flex-col items-center justify-center gap-3'>
                 <h2 className='heading2'>Your messages</h2>

@@ -19,7 +19,7 @@ function Chats() {
     }, [inView, fetchNextPage])
 
   return (
-    <aside className='md:w-[250px] w-full h-screen bg-white md:border-r md:border-r-gray-2/50 overflow-y-auto px-3 py-20 md:py-10'>
+    <aside className='md:w-[250px] w-full h-screen bg-white md:border-r md:border-r-gray-2/50 overflow-y-auto py-20 md:py-10'>
         {isPending && <CircleLoading className='mx-auto' />}
         {isError && <MainError message={error?.message || ""} />}
         <div className='space-y-5'>
