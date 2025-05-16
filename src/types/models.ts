@@ -60,3 +60,15 @@ export type Follow = {
     followerId: string;
     followingId: string;
 }
+
+export type Chat = {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type Message = {
+    id: string;
+    createdAt: Date;
+    content: string;
+}
