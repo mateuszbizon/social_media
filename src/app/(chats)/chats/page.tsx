@@ -1,8 +1,11 @@
+import Chats from '@/components/chats/Chats'
 import React from 'react'
 
 function ChatsPage() {
   return (
-    <div>ChatsPage</div>
+    <div className='flex'>
+        <Chats />
+    </div>
   )
 }
 

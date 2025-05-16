@@ -1,3 +1,4 @@
+import MobileNavigation from '@/components/common/MobileNavigation'
 import Sidebar from '@/components/common/Sidebar'
 import React from 'react'
 
@@ -8,6 +9,7 @@ function ChatLayout({ children }: Readonly<{ children: React.ReactNode }>) {
         <div className='grow'>
             {children}
         </div>
+        <MobileNavigation />
     </main>
   )
 }
