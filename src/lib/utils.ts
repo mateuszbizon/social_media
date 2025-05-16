@@ -1,5 +1,6 @@
 import { MESSAGES } from "@/constants/messages"
 import { ErrorResponse, ServiceError } from "@/types"
+import { Chat } from "@/types/chatResponse"
 import { AxiosError } from "axios"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -36,4 +37,10 @@ export async function getFileFromUrl(url: string): Promise<File | null> {
         console.error(error)
         return null;
     }
+}
+
+export function getOtherChatUser(participants: Chat["participants"], currentUserId: string) {
+    const user = participants.find(u => u.id !== currentUserId)
+
+    return user ?? participants[0]
 }

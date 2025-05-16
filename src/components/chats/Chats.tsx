@@ -6,6 +6,7 @@ import CircleLoading from '../ui/circleLoading'
 import MainError from '../errors/MainError'
 import FlatList from '../common/FlatList'
 import { useInView } from 'react-intersection-observer'
+import ChatCard from '../cards/ChatCard'
 
 function Chats() {
     const { data, isError, error, isFetchingNextPage, fetchNextPage, isPending } = useGetChats()
@@ -29,9 +30,7 @@ function Chats() {
                     keyExtractor={(item) => item.id}
                     className='space-y-5'
                     renderItem={(chat) => (
-                        <div>
-                            {chat.id}
-                        </div>
+                        <ChatCard chat={chat} />
                     )}
                     renderEmptyListComponent={() => (
                         <p className='text-center text-black-2'>No chats yet</p>
