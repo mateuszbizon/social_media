@@ -2,6 +2,7 @@
 
 import { useAuthContext } from '@/context/AuthContext'
 import { getOtherChatUser } from '@/lib/utils'
+import useChatStore from '@/store/chatStore'
 import { Chat } from '@/types/chatResponse'
 import Image from 'next/image'
 import React from 'react'
@@ -12,17 +13,24 @@ type ChatCardProps = {
 
 function ChatCard({ chat }: ChatCardProps) {
     const { user } = useAuthContext()
+    const { selectedChat, setSelectedChat } = useChatStore()
     const otherChatUser = getOtherChatUser(chat.participants, user?.id!)
+    const isChatSelected = selectedChat?.id === chat.id
 
   return (
-    <div className='flex gap-1 p-1 rounded-xl hover:bg-gray-2/20 cursor-pointer'>
-        <div className='relative size-10 rounded-full overflow-hidden'>
-            <Image src={otherChatUser.avatar ?? "/user_empty.jpg"} alt='User avatar' fill className='object-cover' />
-        </div>
-        <div className='space-y-1'>
-            <p className='text-black-2 font-medium text-sm line-clamp-1'>{otherChatUser.username}</p>
-            <p className='text-gray-2 line-clamp-1 text-sm'>message</p>
-        </div>
+    <div className='flex flex-col'>
+        <button 
+            className={`flex gap-1 p-1 rounded-xl ${isChatSelected ? "bg-gray-2/50" : "hover:bg-gray-2/20"} cursor-pointer`} 
+            onClick={() => setSelectedChat(chat)}
+        >
+            <div className='relative size-10 rounded-full overflow-hidden'>
+                <Image src={otherChatUser.avatar ?? "/user_empty.jpg"} alt='User avatar' fill className='object-cover' />
+            </div>
+            <div className='space-y-1'>
+                <p className='text-black-2 font-medium text-sm line-clamp-1'>{otherChatUser.username}</p>
+                <p className='text-gray-2 line-clamp-1 text-sm text-left'>message</p>
+            </div>
+        </button>
     </div>
   )
 }
