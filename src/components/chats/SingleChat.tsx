@@ -1,22 +1,25 @@
 "use client"
 
 import useChatStore from '@/store/chatStore'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import Image from "next/image"
 import Link from 'next/link'
+import CreateChatDialog from './CreateChatDialog'
 
 function SingleChat() {
     const { selectedChat, chatUser } = useChatStore()
+    const [createChatOpen, setCreateChatOpen] = useState(false)
 
   return (
     <div className='h-screen py-14 md:py-0'>
         {!selectedChat && (
             <div className='size-full flex flex-col items-center justify-center gap-3'>
                 <h2 className='heading2'>Your messages</h2>
-                <Button>
+                <Button onClick={() => setCreateChatOpen(true)}>
                     Start new chat
                 </Button>
+                <CreateChatDialog createChatOpen={createChatOpen} setCreateChatOpen={setCreateChatOpen} />
             </div>
         )}
         {selectedChat && (
