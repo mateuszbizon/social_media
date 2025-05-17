@@ -20,9 +20,9 @@ function CreateChatDialog({ createChatOpen, setCreateChatOpen }: CreateChatDialo
 
   return (
     <Dialog open={createChatOpen} onOpenChange={setCreateChatOpen}>
-        <DialogContent>
+        <DialogContent className='h-[calc(100%-2rem)] flex flex-col'>
             <DialogHeader>
-                <DialogTitle>New message</DialogTitle>
+                <DialogTitle>New chat</DialogTitle>
             </DialogHeader>
             <SearchBar onChange={onChangeValue} />
         </DialogContent>
