@@ -17,7 +17,7 @@ export type GetUserProfileResponse = {
     followers: Pick<Follow, "followerId">[]
 }
 
-export type SearchUser = Pick<User, "username" | "firstName" | "lastName" | "avatar"> & {
+export type SearchUser = Pick<User, "id" | "username" | "firstName" | "lastName" | "avatar"> & {
     followersCount: number
 }
 
