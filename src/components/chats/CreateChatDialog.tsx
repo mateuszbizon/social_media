@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
 import SearchBar from '../common/SearchBar'
 import useDebounce from '@/lib/hooks/useDebounce'
 import CreateChatSearchedUsers from './CreateChatSearchedUsers'
+import CreateChat from './CreateChat'
 
 type CreateChatDialogProps = {
     createChatOpen: boolean
@@ -28,6 +29,9 @@ function CreateChatDialog({ createChatOpen, setCreateChatOpen }: CreateChatDialo
             <SearchBar onChange={onChangeValue} />
             <div className='grow overflow-y-auto'>
                 <CreateChatSearchedUsers searchQuery={debouncedSearch} />
+            </div>
+            <div className='mt-auto'>
+                <CreateChat />
             </div>
         </DialogContent>
     </Dialog>
