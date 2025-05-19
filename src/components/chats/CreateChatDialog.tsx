@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
 import SearchBar from '../common/SearchBar'
 import useDebounce from '@/lib/hooks/useDebounce'
+import CreateChatSearchedUsers from './CreateChatSearchedUsers'
 
 type CreateChatDialogProps = {
     createChatOpen: boolean
@@ -25,6 +26,9 @@ function CreateChatDialog({ createChatOpen, setCreateChatOpen }: CreateChatDialo
                 <DialogTitle>New chat</DialogTitle>
             </DialogHeader>
             <SearchBar onChange={onChangeValue} />
+            <div className='grow overflow-y-auto'>
+                <CreateChatSearchedUsers searchQuery={debouncedSearch} />
+            </div>
         </DialogContent>
     </Dialog>
   )
