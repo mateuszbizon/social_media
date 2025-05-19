@@ -12,3 +12,7 @@ export type GetChatsResponse = {
     currentPage: number
     nextPage: number | null
 }
+
+export type CreateChatResponse = {
+    chat: Chat
+}
