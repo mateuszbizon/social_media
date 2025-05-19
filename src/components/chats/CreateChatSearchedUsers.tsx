@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer'
 import CircleLoading from '../ui/circleLoading'
 import MainError from '../errors/MainError'
 import FlatList from '../common/FlatList'
+import CreateChatSearchUserCard from '../cards/CreateChatSearchUserCard'
 
 type CreateChatSearchedUsersProps = {
     searchQuery: string
@@ -35,12 +36,10 @@ function CreateChatSearchedUsers({ searchQuery }: CreateChatSearchedUsersProps) 
             <FlatList
                 data={page.users}
                 renderItem={(user) => (
-                    <div>
-                        {user.username}
-                    </div>
+                    <CreateChatSearchUserCard user={user} />
                 )}
                 key={page.currentPage}
-                keyExtractor={(user) => user.username}
+                keyExtractor={(user) => user.id}
                 renderEmptyListComponent={() => (
                     <p className='text-center text-black-2'>No users found</p>
                 )}

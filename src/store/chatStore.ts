@@ -9,6 +9,8 @@ type ChatState = {
     setSelectedChat: (chat: Chat | null) => void
     chatUser: ChatUser | null
     setChatUser: (user: ChatUser | null) => void
+    selectedUserForNewChat: ChatUser | null
+    setSelectedUserForNewChat: (user: ChatUser | null) => void
 }
 
 const useChatStore = create<ChatState>()(set => ({
@@ -20,6 +22,10 @@ const useChatStore = create<ChatState>()(set => ({
     setChatUser: (user) => set(() => ({
         chatUser: user
     })),
+    selectedUserForNewChat: null,
+    setSelectedUserForNewChat: (user) => set(() => ({
+        selectedUserForNewChat: user
+    }))
 }))
 
 export default useChatStore
