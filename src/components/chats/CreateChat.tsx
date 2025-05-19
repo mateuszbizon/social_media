@@ -5,7 +5,11 @@ import { Button } from '../ui/button'
 import useChatStore from '@/store/chatStore'
 import useCreateChat from '@/lib/hooks/services/chats/useCreateChat'
 
-function CreateChat() {
+type CreateChatProps = {
+    closeCreateChat?: () => void
+}
+
+function CreateChat({ closeCreateChat }: CreateChatProps) {
     const { selectedUserForNewChat } = useChatStore()
     const { handleCreateChat, isPending } = useCreateChat()
 
@@ -16,6 +20,12 @@ function CreateChat() {
 
         await handleCreateChat({
             userIds
+        }, {
+            onSettled: () => {
+                if (closeCreateChat) {
+                    closeCreateChat()
+                }
+            }
         })
     }
 

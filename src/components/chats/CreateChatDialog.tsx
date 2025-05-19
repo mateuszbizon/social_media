@@ -20,6 +20,10 @@ function CreateChatDialog({ createChatOpen, setCreateChatOpen }: CreateChatDialo
         setSearchValue(value)
     }
 
+    function closeCreateChat() {
+        setCreateChatOpen(false)
+    }
+
   return (
     <Dialog open={createChatOpen} onOpenChange={setCreateChatOpen}>
         <DialogContent className='h-[calc(100%-2rem)] flex flex-col'>
@@ -31,7 +35,7 @@ function CreateChatDialog({ createChatOpen, setCreateChatOpen }: CreateChatDialo
                 <CreateChatSearchedUsers searchQuery={debouncedSearch} />
             </div>
             <div className='mt-auto'>
-                <CreateChat />
+                <CreateChat closeCreateChat={closeCreateChat} />
             </div>
         </DialogContent>
     </Dialog>
