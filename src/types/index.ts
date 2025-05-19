@@ -40,3 +40,7 @@ export type ServiceResult<T> = {
 } & ServiceError
 
 export type ProfileOptions = "profile" | "password"
+
+export type ChatSchema = {
+    userIds: string[]
+}

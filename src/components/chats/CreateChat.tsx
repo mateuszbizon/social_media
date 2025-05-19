@@ -3,19 +3,25 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import useChatStore from '@/store/chatStore'
+import useCreateChat from '@/lib/hooks/services/chats/useCreateChat'
 
 function CreateChat() {
     const { selectedUserForNewChat } = useChatStore()
+    const { handleCreateChat, isPending } = useCreateChat()
 
-    function createChat() {
+    async function createChat() {
         if (!selectedUserForNewChat) return
 
-        //todo: create chat
+        const userIds = [selectedUserForNewChat.id]
+
+        await handleCreateChat({
+            userIds
+        })
     }
 
   return (
     <Button onClick={createChat} className='w-full' disabled={!selectedUserForNewChat}>
-        Create chat
+        {isPending ? "Creating..." : "Create chat"}
     </Button>
   )
 }
