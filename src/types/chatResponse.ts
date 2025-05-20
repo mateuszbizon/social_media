@@ -7,6 +7,10 @@ export type Chat = Pick<ChatModel, "id"> & {
     } | null
 }
 
+export type Message = Pick<MessageModel, "id" | "content" | "createdAt"> & {
+    sender: Pick<User, "id" | "avatar" | "username">
+}
+
 export type GetChatsResponse = {
     chats: Chat[]
     currentPage: number
@@ -15,4 +19,8 @@ export type GetChatsResponse = {
 
 export type CreateChatResponse = {
     chat: Chat
+}
+
+export type GetChatMessagesResponse = {
+    messages: Message[]
 }
