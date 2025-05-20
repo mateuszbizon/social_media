@@ -7,6 +7,7 @@ import Image from "next/image"
 import Link from 'next/link'
 import CreateChatDialog from './CreateChatDialog'
 import ChatMessages from './ChatMessages'
+import CreateChatMessage from './CreateChatMessage'
 
 function SingleChat() {
     const { selectedChat, chatUser } = useChatStore()
@@ -36,6 +37,9 @@ function SingleChat() {
                     </Link>
                 </div>
                 <ChatMessages chatId={selectedChat.id} />
+                <div className='mt-auto'>
+                    <CreateChatMessage chatId={selectedChat.id} />
+                </div>
             </div>
         )}
     </div>

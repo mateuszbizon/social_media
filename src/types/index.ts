@@ -44,3 +44,7 @@ export type ProfileOptions = "profile" | "password"
 export type ChatSchema = {
     userIds: string[]
 }
+
+export type ChatMessageSchema = {
+    content: string
+}
