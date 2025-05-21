@@ -36,7 +36,7 @@ function useGetChatMessages({ chatId }: Props) {
         socket.emit("joinChat", { chatId, userId: user.id })
 
         return () => {
-            socket.disconnect()
+            socket.off("receiveMessage")
         }
     }, [])
 

@@ -1,12 +1,12 @@
 import { MESSAGES } from '@/constants/messages'
 import { useAuthContext } from '@/context/AuthContext'
+import socket from '@/lib/config/socket'
 import { createChatMessage } from '@/lib/services/chats'
 import { ErrorResponse } from '@/types'
 import { GetChatMessagesResponse, Message } from '@/types/chatResponse'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { error } from 'console'
-import { useId } from 'react'
+import { useEffect, useId } from 'react'
 import { toast } from 'react-toastify'
 
 type Props = {
@@ -73,8 +73,33 @@ function useCreateChatMessage({ chatId }: Props) {
             }
 
             toast.error(error.response?.data.message || MESSAGES.network.fail)
+        },
+        onSuccess: (data, variables, context) => {
+            socket.emit("sendMessage", { chatId, message: context.optimisticMessage })
         }
     })
+
+    useEffect(() => {
+        socket.on("receiveMessage", (message: Message) => {
+            if (user?.id === message.sender.id) return
+
+            queryClient.setQueryData<InfiniteData<GetChatMessagesResponse>>(["chatMessages", chatId], (oldData) => {
+                if (!oldData) return oldData
+
+                return {
+                    ...oldData,
+                    pages: oldData.pages.map((page, index) => {
+                        if (index !== 0) return page
+
+                        return {
+                            ...page,
+                            messages: [message, ...page.messages]
+                        }
+                    }),
+                }
+            })
+        })
+    }, [])
 
   return {
     handleCreateChatMessage,
