@@ -6,8 +6,9 @@ import { ErrorResponse } from '@/types'
 import { GetChatMessagesResponse, Message } from '@/types/chatResponse'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { useEffect, useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { toast } from 'react-toastify'
+import useDebounce from '../../useDebounce'
 
 type Props = {
     chatId: string
@@ -17,6 +18,11 @@ function useCreateChatMessage({ chatId }: Props) {
     const { user } = useAuthContext()
     const id = useId()
     const queryClient = useQueryClient()
+    const [newMessage, setNewMessage] = useState("")
+    const [typing, setTyping] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
+    const debouncedTyping = useDebounce(newMessage, 5000)
+
     const { mutateAsync: handleCreateChatMessage } = useMutation({
         mutationFn: createChatMessage,
         onMutate: (data) => {
@@ -99,10 +105,30 @@ function useCreateChatMessage({ chatId }: Props) {
                 }
             })
         })
+
+        socket.on("typing", () => {
+            setIsTyping(true)
+        })
+
+        socket.on("stopTyping", () => {
+            setIsTyping(false)
+        })
     }, [])
+
+    useEffect(() => {
+        if (!typing) return
+
+        socket.emit("stopTyping", { chatId })
+        setTyping(false)
+    }, [debouncedTyping])
 
   return {
     handleCreateChatMessage,
+    newMessage,
+    setNewMessage,
+    typing,
+    setTyping,
+    isTyping,
   }
 }
 
