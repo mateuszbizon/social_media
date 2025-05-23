@@ -10,8 +10,10 @@ import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
 import { Button } from '../ui/button'
 import useShowPassword from '@/lib/hooks/useShowPassword'
+import useSignUp from '@/lib/hooks/services/users/useSignUp'
 
 function SignUpForm() {
+    const { handleSignUp } = useSignUp()
     const form = useForm<SignupSchema>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
@@ -24,8 +26,14 @@ function SignUpForm() {
     })
     const { passwordShown, passwordType, togglePassword } = useShowPassword()
 
-    function onSubmit(data: SignupSchema) {
+    async function onSubmit(data: SignupSchema) {
         console.log(data)
+
+        await handleSignUp(data, {
+            onSuccess: () => {
+                form.reset()
+            }
+        })
     }
 
   return (
