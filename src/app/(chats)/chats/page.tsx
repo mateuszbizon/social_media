@@ -3,25 +3,13 @@
 import withAuth from '@/components/auth/withAuth'
 import Chats from '@/components/chats/Chats'
 import SingleChat from '@/components/chats/SingleChat'
+import useWidth from '@/lib/hooks/useWidth'
 import useChatStore from '@/store/chatStore'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 function ChatsPage() {
     const { selectedChat } = useChatStore()
-    const [width, setWidth] = useState(window.innerWidth)
-    const isMobile = width < 768
-
-    const handleResize = () => {
-        setWidth(window.innerWidth)
-    }
-
-    useEffect(() => {
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
+    const { isMobile } = useWidth()
 
   return (
     <div className='flex'>
