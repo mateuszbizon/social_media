@@ -2,7 +2,8 @@ export const MESSAGES = {
     user: {
         profileUpdated: "Profile updated successfully",
         passwordUpdated: "Password updated successfully",
-        logout: "User has been logged out"
+        logout: "User has been logged out",
+        signUp: "User account created successfully",
     },
     post: {
         created: "Post created",
