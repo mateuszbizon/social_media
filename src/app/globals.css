@@ -24,6 +24,7 @@
     --color-gray-2: var(--gray-2);
     --color-green-2: var(--green-2);
     --animate-rotate-spinner: rotate-spinner 1s linear infinite;
+    --animate-dots-flashing: dots-flashing 1s linear infinite;
 }
 
 @layer base {
@@ -52,6 +53,18 @@
     .like-icon-liked {
         @apply fill-red-2 stroke-red-2 transition duration-200
     }
+
+    .dot-loading {
+        @apply size-4 rounded-full bg-primary animate-dots-flashing
+    }
+
+    .dot-loading-second {
+        @apply delay-200
+    }
+
+    .dot-loading-third {
+        @apply delay-400
+    }
 }
 
 @layer utilities {
@@ -68,5 +81,20 @@
 @keyframes rotate-spinner {
     to {
         transform: rotate(1turn);
+    }
+}
+
+@keyframes dots-flashing {
+    0% {
+        background-color: var(--primary);
+    }
+
+    50% {
+        background-color: var(--primary-2);
+    }
+
+    100% {
+        background-color: var(--primary);
+        opacity: 10;
     }
 }

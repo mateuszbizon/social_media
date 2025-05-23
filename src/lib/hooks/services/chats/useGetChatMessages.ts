@@ -1,12 +1,16 @@
+import { useAuthContext } from "@/context/AuthContext";
+import socket from "@/lib/config/socket";
 import { getChatMessages } from "@/lib/services/chats";
 import { GetChatMessagesResponse } from "@/types/chatResponse";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 type Props = {
 	chatId: string;
 };
 
 function useGetChatMessages({ chatId }: Props) {
+    const { user } = useAuthContext()
 	const { data, isError, error, isFetchingNextPage, fetchNextPage, isPending } = useInfiniteQuery<
 		GetChatMessagesResponse,
 		Error,
@@ -25,6 +29,16 @@ function useGetChatMessages({ chatId }: Props) {
 			return lastMessage.id
 		},
 	})
+
+    useEffect(() => {
+        if (!user) return
+
+        socket.emit("joinChat", { chatId, userId: user.id })
+
+        return () => {
+            socket.off("receiveMessage")
+        }
+    }, [])
 
 	return {
         data,
