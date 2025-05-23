@@ -8,9 +8,10 @@ import Link from 'next/link'
 import CreateChatDialog from './CreateChatDialog'
 import ChatMessages from './ChatMessages'
 import CreateChatMessage from './CreateChatMessage'
+import { ArrowLeft } from 'lucide-react'
 
 function SingleChat() {
-    const { selectedChat, chatUser } = useChatStore()
+    const { selectedChat, setSelectedChat, chatUser } = useChatStore()
     const [createChatOpen, setCreateChatOpen] = useState(false)
 
   return (
@@ -27,13 +28,16 @@ function SingleChat() {
         {selectedChat && (
             <div className='flex flex-col h-full'>
                 <div className='flex p-3 bg-white items-center gap-3 border-b border-b-gray-2/50'>
+                    <Button variant={"transparent"} size={"icon"} className='md:hidden' onClick={() => setSelectedChat(null)}>
+                        <ArrowLeft />
+                    </Button>
                     <Link href={`/user/${chatUser?.username}`} target='_blank'>
-                        <div className='relative size-14 rounded-full overflow-hidden'>
+                        <div className='relative size-10 md:size-14 rounded-full overflow-hidden'>
                             <Image src={chatUser?.avatar ?? "/user_empty.jpg"} alt='User avatar' fill className='object-cover' />
                         </div>
                     </Link>
                     <Link href={`/user/${chatUser?.username}`} target='_blank'>
-                        <p className='line-clamp-1'>{chatUser?.username}</p>
+                        <p className='line-clamp-1 text-sm: md:text-base'>{chatUser?.username}</p>
                     </Link>
                 </div>
                 <ChatMessages chatId={selectedChat.id} />
