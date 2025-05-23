@@ -4,9 +4,16 @@ import { SignInSchema } from "../validations/signInSchema";
 import { ServiceResult } from "@/types";
 import { handleApiError } from "../utils";
 import { UserPasswordSchema } from "../validations/userPasswordSchema";
+import { SignupSchema } from "../validations/signupSchema";
 
 export async function signIn(userData: SignInSchema): Promise<SignInResponse> {
     const { data } = await API.post(`/users/sign-in`, userData)
+
+    return data
+}
+
+export async function signUp(userData: SignupSchema) {
+    const { data } = await API.post(`/users/sign-up`, userData)
 
     return data
 }
